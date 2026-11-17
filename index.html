@@ -1,0 +1,1971 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ซูชิคำราชาศัพท์: หมวดอวัยวะร่างกาย</title>
+    <!-- โหลดฟอนต์ภาษาไทย Kanit และ Prompt -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;700;800&family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- โหลด Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Kanit', 'Prompt', sans-serif;
+            background-color: #fde8df;
+            overflow-x: hidden;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* พื้นหลังร้านซูชิญี่ปุ่นโทนชมพูพาสเทล-พีช */
+        .sushi-shop-bg {
+            background: 
+                radial-gradient(circle at 50% 25%, rgba(255, 250, 245, 0.88) 0%, rgba(250, 214, 198, 0.92) 100%),
+                repeating-linear-gradient(
+                    90deg,
+                    #f7cfc0 0px,
+                    #f7cfc0 58px,
+                    #eab8a4 58px,
+                    #eab8a4 62px
+                );
+        }
+
+        /* เส้นขอบตัวอักษรสีเข้มให้อ่านง่ายบนป้ายภารกิจ */
+        .text-outline-dark {
+            text-shadow: 
+                -1.5px -1.5px 0 #4a2106,  
+                 1.5px -1.5px 0 #4a2106,
+                -1.5px  1.5px 0 #4a2106,
+                 1.5px  1.5px 0 #4a2106,
+                 0px    2.5px 0 #4a2106;
+        }
+
+        /* ป้ายภารกิจสีส้มสดใสขอบขาวหนา */
+        .mission-banner {
+            background: linear-gradient(180deg, #ff9e1b 0%, #f57200 100%);
+            border: 4px solid #ffffff;
+            box-shadow: 0 6px 0 #c44d00, 0 10px 20px rgba(90, 35, 0, 0.2);
+        }
+
+        .mission-pill {
+            background: #fff9eb;
+            border: 3px solid #f57200;
+            color: #8c3b00;
+            box-shadow: 0 3px 0 #d65a00;
+        }
+
+        /* ป้ายคะแนนสีเขียวมุมซ้ายบน */
+        .score-badge {
+            background: linear-gradient(180deg, #43b848 0%, #26892b 100%);
+            border: 3px solid #ffdf5d;
+            box-shadow: 0 4px 0 #175c1b, 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+        /* จานซูชิสีขาววงรีขอบเหลืองทอง */
+        .sushi-plate {
+            background: radial-gradient(ellipse at center, #ffffff 60%, #ffe680 63%, #ffc82c 68%, #ffffff 72%);
+            border: 4px solid #e6e6e6;
+            box-shadow: 0 9px 0 #c2c2c2, 0 15px 24px rgba(0,0,0,0.18);
+        }
+
+        /* ชั้นวางสะสมจานซูชิที่ตอบสำเร็จแล้ว */
+        .collected-shelf {
+            background: linear-gradient(180deg, #8d5524 0%, #6b3e18 100%);
+            border: 3px solid #d49a6a;
+            box-shadow: inset 0 3px 8px rgba(0,0,0,0.35), 0 5px 0 #4a290e;
+        }
+
+        /* การ์ดโมเดลคนทั้งตัวฝั่งซ้าย */
+        .character-stage-card {
+            background: linear-gradient(180deg, #ffffff 0%, #eef7ff 100%);
+            border: 4px solid #38bdf8;
+            box-shadow: 0 8px 0 #0284c7, 0 14px 24px rgba(0,0,0,0.16);
+        }
+
+        /* การ์ดแสดงภาพซูมอวัยวะเดี่ยวฝั่งขวา */
+        .organ-focus-card {
+            background: linear-gradient(180deg, #ffffff 0%, #fff7eb 100%);
+            border: 4px solid #ff9e1b;
+            box-shadow: 0 8px 0 #d97200, 0 14px 24px rgba(0,0,0,0.16);
+        }
+
+        /* ป้ายชื่ออวัยวะใต้ภาพ */
+        .organ-name-banner {
+            background: linear-gradient(180deg, #ff7043 0%, #e64a19 100%);
+            border: 3px solid #ffffff;
+            box-shadow: 0 4px 0 #bf360c;
+        }
+
+        /* สายพานซูชิสีเทาเข้มด้านล่าง (ปรับให้เลื่อนช้าลงอ่านง่าย) */
+        .conveyor-belt {
+            background: linear-gradient(180deg, #32353f 0%, #23252d 85%, #16181d 100%);
+            border-top: 6px solid #595e6e;
+            border-bottom: 8px solid #111216;
+            box-shadow: 0 -5px 18px rgba(0,0,0,0.25);
+        }
+
+        .conveyor-stripes {
+            background-image: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 46px,
+                rgba(255, 255, 255, 0.08) 46px,
+                rgba(255, 255, 255, 0.08) 54px
+            );
+            animation: beltScroll 2.25s linear infinite;
+        }
+
+        @keyframes beltScroll {
+            from { background-position: 0 0; }
+            to { background-position: -100px 0; }
+        }
+
+        /* ==================== แอนิเมชันจัดเต็มทั่วทั้งเกม ==================== */
+
+        /* 1. แอนิเมชันซูชิหายใจดึ๋งดั๋ง + กะพริบตา + ควันหอมกรุ่น */
+        @keyframes sushiBreathe {
+            0%, 100% { transform: scale(1, 1) translateY(0px); }
+            50% { transform: scale(1.035, 0.965) translateY(1.5px); }
+        }
+        .sushi-idle-body {
+            transform-box: fill-box;
+            transform-origin: bottom center;
+            animation: sushiBreathe 2.1s ease-in-out infinite;
+        }
+
+        @keyframes sushiBlink {
+            0%, 90%, 100% { transform: scaleY(1); }
+            94%, 97% { transform: scaleY(0.1); }
+        }
+        .sushi-eye-blink {
+            transform-box: fill-box;
+            transform-origin: center;
+            animation: sushiBlink 3.6s infinite;
+        }
+
+        @keyframes steamRise {
+            0% { transform: translateY(0) scale(0.85); opacity: 0; }
+            35% { opacity: 0.72; }
+            100% { transform: translateY(-20px) scale(1.25); opacity: 0; }
+        }
+        .sushi-steam-1 {
+            animation: steamRise 2.4s ease-out infinite;
+        }
+        .sushi-steam-2 {
+            animation: steamRise 2.4s ease-out 1.2s infinite;
+        }
+
+        /* ฟันเฟืองลูกกลิ้งปลายสายพานหมุนต่อเนื่อง */
+        @keyframes rollerSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(-360deg); }
+        }
+        .belt-roller-spin {
+            animation: rollerSpin 4.2s linear infinite;
+        }
+
+        /* เยลลี่เด้งดึ๋งเมื่อซูชิลงจาน */
+        @keyframes jellyLand {
+            0% { transform: scale(0.45); opacity: 0; }
+            45% { transform: scale(1.22, 0.82); opacity: 1; }
+            65% { transform: scale(0.9, 1.12); }
+            82% { transform: scale(1.05, 0.96); }
+            100% { transform: scale(1, 1); opacity: 1; }
+        }
+        .jelly-land {
+            animation: jellyLand 0.58s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        /* 2. การ์ดอวัยวะเดี่ยวฝั่งขวา: ลอยเบาๆ + พลิก 3 มิติเมื่อเปลี่ยนข้อ */
+        @keyframes organFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(1.5deg); }
+        }
+        .organ-float-idle {
+            animation: organFloat 2.8s ease-in-out infinite;
+        }
+
+        @keyframes organFlipIn {
+            0% { transform: perspective(600px) rotateY(-85deg) scale(0.75); opacity: 0; }
+            65% { transform: perspective(600px) rotateY(12deg) scale(1.06); opacity: 1; }
+            100% { transform: perspective(600px) rotateY(0deg) scale(1); opacity: 1; }
+        }
+        .organ-flip-in {
+            animation: organFlipIn 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        /* แสงออร่าเรืองรองและกระโดดดีใจบนโมเดลคนทั้งตัว */
+        @keyframes auraBurst {
+            0% { transform: scale(0.4); opacity: 0.95; }
+            100% { transform: scale(2.1); opacity: 0; }
+        }
+        .aura-burst-ring {
+            transform-box: fill-box;
+            transform-origin: center;
+            animation: auraBurst 0.85s ease-out forwards;
+        }
+
+        @keyframes characterVictoryDance {
+            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+            25% { transform: translateY(-10px) rotate(-3deg) scale(1.04); }
+            50% { transform: translateY(0) rotate(0deg) scale(1); }
+            75% { transform: translateY(-10px) rotate(3deg) scale(1.04); }
+        }
+        .character-victory-dance {
+            animation: characterVictoryDance 0.9s ease-in-out infinite;
+        }
+
+        /* 3. ป้ายคะแนนลอยขึ้น & คอมโบไฟลุก & ซูชิลอยพื้นหลังหน้าเริ่มเกม */
+        @keyframes floatScoreUp {
+            0% { transform: translate(-50%, 0) scale(0.6); opacity: 0; }
+            20% { transform: translate(-50%, -14px) scale(1.18); opacity: 1; }
+            80% { transform: translate(-50%, -56px) scale(1); opacity: 1; }
+            100% { transform: translate(-50%, -74px) scale(0.9); opacity: 0; }
+        }
+        .floating-score-popup {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            animation: floatScoreUp 1.05s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        @keyframes comboPulse {
+            0%, 100% { transform: scale(1) rotate(-1deg); }
+            50% { transform: scale(1.1) rotate(1deg); }
+        }
+        .combo-badge-active {
+            animation: comboPulse 0.75s ease-in-out infinite;
+        }
+
+        @keyframes welcomeFloat {
+            0%, 100% { transform: translateY(0px) rotate(-6deg); }
+            50% { transform: translateY(-14px) rotate(6deg); }
+        }
+        .welcome-deco-float {
+            animation: welcomeFloat 3.4s ease-in-out infinite;
+        }
+
+        /* เอฟเฟกต์ปุ่มและซูชิ */
+        .sushi-btn {
+            transition: transform 0.16s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+        }
+        .sushi-btn:hover {
+            transform: scale(1.09) translateY(-7px);
+        }
+        .sushi-btn:active {
+            transform: scale(0.93);
+        }
+
+        /* อนิเมชันอวัยวะโผล่ประกอบร่างบนตัวละคร */
+        @keyframes partPopIn {
+            0% { transform: scale(0.15); opacity: 0; filter: drop-shadow(0 0 22px #ffca28); }
+            55% { transform: scale(1.28); opacity: 1; filter: drop-shadow(0 0 18px #ff6f00); }
+            78% { transform: scale(0.92); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; filter: drop-shadow(0 0 0px transparent); }
+        }
+        .part-pop-in {
+            transform-box: fill-box;
+            transform-origin: center;
+            animation: partPopIn 0.72s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        /* อนิเมชันสั่นมึนงงเมื่อตอบผิด */
+        @keyframes wrongShake {
+            0%, 100% { transform: translateX(0) rotate(0deg) scale(1); }
+            18% { transform: translateX(-11px) rotate(-7deg) scale(0.96); }
+            36% { transform: translateX(11px) rotate(7deg) scale(0.96); }
+            54% { transform: translateX(-8px) rotate(-4deg); }
+            72% { transform: translateX(8px) rotate(4deg); }
+        }
+        .wrong-shake {
+            animation: wrongShake 0.46s ease-in-out;
+        }
+
+        /* อนิเมชันเปลี่ยนภาพอวัยวะใหม่ */
+        @keyframes organEnter {
+            0% { transform: scale(0.75) rotate(-4deg); opacity: 0; }
+            70% { transform: scale(1.06) rotate(1deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+        .organ-enter {
+            animation: organEnter 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        /* อนิเมชันเด้งเรืองแสงเมื่อตอบถูก */
+        @keyframes organCelebrate {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px rgba(255, 193, 7, 0)); }
+            40% { transform: scale(1.15); filter: drop-shadow(0 0 16px rgba(255, 160, 0, 0.95)); }
+            70% { transform: scale(0.96); }
+        }
+        .organ-celebrate {
+            animation: organCelebrate 0.6s ease-in-out;
+        }
+
+        .game-btn {
+            transition: all 0.14s ease;
+            box-shadow: 0 4px 0 rgba(0,0,0,0.25);
+        }
+        .game-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 rgba(0,0,0,0.25);
+        }
+
+        /* ปรับแต่ง Scrollbar */
+        .custom-scroll::-webkit-scrollbar {
+            height: 6px;
+            width: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 999px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: rgba(245, 158, 11, 0.7);
+            border-radius: 999px;
+        }
+    </style>
+</head>
+<body class="sushi-shop-bg min-h-screen flex flex-col justify-between text-stone-800">
+
+    <!-- ==================== หน้าจอเริ่มต้นเกม & ใส่ชื่อผู้เล่น (ไม่บังคับ) ==================== -->
+    <div id="start-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-black/65 backdrop-blur-sm p-3 sm:p-4 overflow-y-auto">
+        <!-- ของตกแต่งซูชิลอยไปมาบนพื้นหลังหน้าเริ่มต้น -->
+        <div class="pointer-events-none fixed inset-0 overflow-hidden z-0">
+            <div class="welcome-deco-float absolute top-8 left-8 text-5xl sm:text-6xl opacity-75" style="animation-delay: 0s;">🍣</div>
+            <div class="welcome-deco-float absolute top-14 right-10 text-5xl sm:text-6xl opacity-75" style="animation-delay: 0.9s;">🍱</div>
+            <div class="welcome-deco-float absolute bottom-12 left-12 text-5xl sm:text-6xl opacity-75" style="animation-delay: 1.7s;">🍤</div>
+            <div class="welcome-deco-float absolute bottom-10 right-12 text-5xl sm:text-6xl opacity-75" style="animation-delay: 2.3s;">🍙</div>
+        </div>
+
+        <div class="bg-[#fffaf2] border-4 border-orange-400 rounded-3xl max-w-xl w-full p-5 sm:p-6 text-center shadow-2xl relative z-10 overflow-hidden my-auto">
+            <div class="absolute top-0 left-0 right-0 h-3.5 bg-gradient-to-r from-red-500 via-orange-400 to-red-500"></div>
+
+            <span class="inline-block bg-orange-100 text-orange-700 font-bold px-4 py-0.5 rounded-full text-xs sm:text-sm border border-orange-300 mb-1.5">
+                🍣 เกมภาษาไทยแสนสนุก • ประกอบร่างตัวละคร 🍣
+            </span>
+            <h1 class="text-2xl sm:text-4xl font-extrabold text-orange-600 mb-1">
+                ซูชิคำราชาศัพท์
+            </h1>
+            <h2 class="text-sm sm:text-lg font-bold text-amber-900 bg-amber-100 py-1 px-4 rounded-2xl inline-block mb-3 border-2 border-amber-300">
+                หมวดอวัยวะร่างกาย (17 อวัยวะ)
+            </h2>
+
+            <!-- กล่องกรอกชื่อผู้เล่น (ไม่บังคับ) -->
+            <div class="bg-white border-2 border-orange-300 rounded-2xl p-3.5 mb-3 shadow-inner text-left">
+                <label for="player-name-input" class="block text-sm font-bold text-orange-800 mb-1">
+                    👤 ชื่อเชฟผู้เข้าแข่งขัน (ไม่กรอกก็เริ่มเล่นได้ทันที):
+                </label>
+                <div class="flex gap-2">
+                    <input 
+                        type="text" 
+                        id="player-name-input" 
+                        maxlength="18"
+                        placeholder="พิมพ์ชื่อของคุณ (เช่น เชฟต้นกล้า)" 
+                        class="flex-1 bg-orange-50/70 border-2 border-orange-300 focus:border-orange-500 focus:outline-none rounded-xl px-3.5 py-2 text-base font-bold text-stone-800 placeholder:font-normal placeholder:text-stone-400"
+                    />
+                    <button type="button" onclick="randomizePlayerName()" title="สุ่มชื่อน่ารักๆ" class="game-btn bg-amber-200 hover:bg-amber-300 text-amber-900 font-bold px-3 py-2 rounded-xl border border-amber-400 text-sm whitespace-nowrap">
+                        🎲 สุ่มชื่อ
+                    </button>
+                </div>
+            </div>
+
+            <!-- กติกาแบบกระชับ -->
+            <div class="text-left bg-orange-50/90 p-3 rounded-2xl border border-orange-200 text-xs sm:text-sm space-y-1 mb-4">
+                <p class="font-bold text-orange-700">📌 ภารกิจของคุณ:</p>
+                <p>• เลือกซูชิคำราชาศัพท์ให้ครบทุกคำของอวัยวะนั้น <b>จานที่ตอบถูกจะถูกเก็บสะสมไว้บนชั้นวาง</b></p>
+                <p>• เมื่อตอบถูกแต่ละข้อ <b>อวัยวะส่วนนั้นจะค่อยๆ ปรากฏขึ้นบนโมเดลคนทั้งตัวฝั่งซ้าย</b> จนครบทั้ง 17 ส่วน!</p>
+                <p>• จบเกมแล้วมาดู <b>คะแนนและเวลาของคุณ</b> เพื่อเปรียบเทียบกับเพื่อนๆ หาผู้ชนะอันดับ 1!</p>
+            </div>
+
+            <!-- ปุ่มเริ่มเกม / สมุดคำศัพท์ -->
+            <div class="flex flex-col sm:flex-row gap-2.5 justify-center">
+                <button onclick="startGame()" class="game-btn bg-gradient-to-b from-green-500 to-green-600 hover:from-green-400 hover:to-green-500 text-white font-bold text-lg sm:text-xl py-3 px-6 rounded-2xl border-2 border-white flex-1">
+                    ▶ เริ่มเกมเลย!
+                </button>
+                <button onclick="toggleVocabModal(true)" class="game-btn bg-gradient-to-b from-sky-400 to-sky-500 hover:from-sky-300 hover:to-sky-400 text-white font-bold text-base py-3 px-5 rounded-2xl border-2 border-white">
+                    📖 คลังคำศัพท์
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== ส่วนบน: HUD ชื่อผู้เล่น + คะแนน + เวลา + ป้ายภารกิจ ==================== -->
+    <header class="w-full max-w-7xl mx-auto px-3 sm:px-5 pt-2.5 pb-1 z-20">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <!-- มุมซ้ายบน: ป้ายคะแนน + ป้ายคอมโบ + ชื่อผู้เล่น -->
+            <div class="flex items-center gap-2 flex-wrap">
+                <div id="score-badge-box" class="score-badge px-3.5 py-1 sm:px-4 sm:py-1 rounded-full flex items-center gap-1.5 text-white font-bold text-sm sm:text-lg transition-transform">
+                    <span class="text-yellow-300 text-lg sm:text-xl drop-shadow">★</span>
+                    <span>คะแนน: <span id="score-display">0</span></span>
+                </div>
+                <div id="combo-badge" class="hidden combo-badge-active bg-gradient-to-r from-red-500 via-orange-500 to-amber-500 text-white border-2 border-yellow-200 px-3 py-1 rounded-full font-extrabold text-xs sm:text-sm shadow-md">
+                    🔥 คอมโบ x<span id="combo-count-text">2</span>!
+                </div>
+                <div class="bg-white/95 border-2 border-orange-300 px-3 py-1 rounded-full font-bold text-stone-700 text-xs sm:text-sm shadow-sm flex items-center gap-1">
+                    <span>👨‍🍳</span>
+                    <span id="hud-player-name" class="text-orange-700 max-w-[120px] sm:max-w-[170px] truncate">เชฟผู้ท้าชิง</span>
+                </div>
+            </div>
+
+            <!-- มุมขวาบน: เวลา + ข้อที่ + สมุดคำศัพท์ + ปุ่มเสียง -->
+            <div class="flex items-center gap-1.5 sm:gap-2">
+                <div class="bg-white/95 border-2 border-sky-300 px-2.5 py-1 rounded-full font-bold text-sky-800 text-xs sm:text-sm shadow-sm">
+                    ⏱️ <span id="timer-display">00:00</span>
+                </div>
+                <div class="bg-white/95 border-2 border-orange-300 px-2.5 py-1 rounded-full font-bold text-orange-800 text-xs sm:text-sm shadow-sm">
+                    ข้อ <span id="question-progress" class="text-orange-600">1</span>/17
+                </div>
+                <button onclick="toggleVocabModal(true)" class="game-btn bg-sky-400 hover:bg-sky-300 text-white font-bold px-3 py-1 rounded-full border-2 border-white text-xs sm:text-sm" title="คลังคำศัพท์">
+                    📖 <span class="hidden sm:inline">คลังคำศัพท์</span>
+                </button>
+                <button onclick="toggleSound()" id="sound-btn" title="เปิด/ปิดเสียง" class="game-btn bg-white hover:bg-gray-100 text-gray-700 font-bold px-2.5 py-1 rounded-full border-2 border-gray-300 text-xs sm:text-sm">
+                    🔊
+                </button>
+            </div>
+        </div>
+
+        <!-- ป้ายภารกิจหลักสีส้มขอบขาว -->
+        <div class="relative max-w-4xl mx-auto">
+            <div class="flex justify-center -mb-2.5 relative z-10">
+                <span id="mission-category-pill" class="mission-pill px-4 py-0.5 rounded-full font-bold text-xs sm:text-sm">
+                    อวัยวะร่างกาย • หมวด: ส่วนศีรษะและใบหน้า
+                </span>
+            </div>
+            <div class="mission-banner rounded-3xl px-4 py-2 sm:py-2.5 text-center text-white">
+                <h1 id="mission-text" class="text-base sm:text-xl md:text-2xl font-extrabold text-outline-dark leading-snug">
+                    ภารกิจปัจจุบัน: จงหาคำราชาศัพท์ของ "<span class="text-yellow-200 underline decoration-wavy">ศีรษะ / หัว</span>" ใส่จานให้ครบ 1 คำ
+                </h1>
+                <p class="text-[11px] sm:text-xs text-orange-100 font-medium">
+                    ซูชิชุดนี้: <span id="sushi-type-badge" class="bg-white/20 px-2 py-0.5 rounded-full font-bold text-white">หน้าแซลมอน</span>
+                    • ประกอบอวัยวะแล้ว <span id="body-progress-badge" class="font-bold text-yellow-200">0/17</span> ส่วน
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== พื้นที่หลัก 3 คอลัมน์: โมเดลคนทั้งตัว | จานเสิร์ฟ+ชั้นเก็บจาน | การ์ดอวัยวะโจทย์ ==================== -->
+    <main class="flex-1 w-full max-w-7xl mx-auto px-2 sm:px-5 py-1.5 grid grid-cols-1 lg:grid-cols-12 items-center gap-3 z-10">
+        
+        <!-- 1. ฝั่งซ้าย (3 คอลัมน์): โมเดลคนทั้งตัว (เริ่มต้นเป็นโครงร่างเส้นประ ประกอบครบ 17 ส่วน) -->
+        <div class="lg:col-span-3 flex flex-col items-center order-2 lg:order-1">
+            <div class="character-stage-card rounded-3xl p-2.5 sm:p-3 w-full max-w-[260px] lg:max-w-full flex flex-col items-center">
+                <div class="flex items-center justify-between w-full px-1 mb-1">
+                    <span class="bg-sky-100 text-sky-800 border border-sky-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full">
+                        🧍 โมเดลประกอบร่าง
+                    </span>
+                    <span id="char-percent-label" class="text-xs font-extrabold text-sky-700">0%</span>
+                </div>
+
+                <!-- SVG โมเดลคนทั้งตัว (17 อวัยวะ) -->
+                <div id="character-stage-box" class="w-44 h-56 sm:w-48 sm:h-64 bg-gradient-to-b from-sky-50 to-indigo-50/70 rounded-2xl border-2 border-sky-200 flex items-center justify-center p-1 relative overflow-hidden">
+                    <!-- วงแสงออร่าฉลองเมื่อปลดล็อกอวัยวะใหม่ -->
+                    <div id="character-aura-layer" class="pointer-events-none absolute inset-0 flex items-center justify-center"></div>
+                    <svg id="full-body-svg" viewBox="0 0 220 315" class="w-full h-full overflow-visible">
+                        <!-- แท่นยืนด้านล่าง -->
+                        <ellipse cx="110" cy="296" rx="72" ry="11" fill="#bae6fd" stroke="#38bdf8" stroke-width="2"/>
+                        <ellipse cx="110" cy="294" rx="56" ry="7" fill="#e0f2fe"/>
+
+                        <!-- ========== โครงร่างเส้นประเริ่มต้น (จะค่อยๆ หายไปเมื่อชิ้นส่วนจริงปรากฏ) ========== -->
+                        <g id="silhouette-placeholders">
+                            <!-- โครงศีรษะ -->
+                            <ellipse id="ph-head" cx="110" cy="76" rx="42" ry="48" fill="rgba(255,255,255,0.45)" stroke="#94a3b8" stroke-width="2" stroke-dasharray="5 4"/>
+                            <!-- โครงคอ -->
+                            <rect id="ph-neck" x="98" y="122" width="24" height="22" rx="6" fill="rgba(255,255,255,0.45)" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4 3"/>
+                            <!-- โครงลำตัวพื้นฐาน -->
+                            <path d="M 72 144 Q 110 136 148 144 L 152 216 Q 110 222 68 216 Z" fill="rgba(255,255,255,0.55)" stroke="#94a3b8" stroke-width="2.2" stroke-dasharray="5 4"/>
+                            <!-- โครงแขนซ้าย-ขวา -->
+                            <path id="ph-arm-l" d="M 72 150 Q 46 176 52 204" fill="none" stroke="#94a3b8" stroke-width="12" stroke-linecap="round" stroke-dasharray="5 5" opacity="0.55"/>
+                            <path id="ph-arm-r" d="M 148 150 Q 174 176 168 204" fill="none" stroke="#94a3b8" stroke-width="12" stroke-linecap="round" stroke-dasharray="5 5" opacity="0.55"/>
+                            <!-- โครงมือซ้าย-ขวา -->
+                            <circle id="ph-hand-l" cx="52" cy="208" r="8.5" fill="rgba(255,255,255,0.5)" stroke="#94a3b8" stroke-width="2" stroke-dasharray="3 3"/>
+                            <circle id="ph-hand-r" cx="168" cy="208" r="8.5" fill="rgba(255,255,255,0.5)" stroke="#94a3b8" stroke-width="2" stroke-dasharray="3 3"/>
+                            <!-- โครงขาซ้าย-ขวา -->
+                            <rect id="ph-leg-l" x="84" y="216" width="20" height="58" rx="8" fill="rgba(255,255,255,0.45)" stroke="#94a3b8" stroke-width="2" stroke-dasharray="5 4"/>
+                            <rect id="ph-leg-r" x="116" y="216" width="20" height="58" rx="8" fill="rgba(255,255,255,0.45)" stroke="#94a3b8" stroke-width="2" stroke-dasharray="5 4"/>
+                            <!-- โครงเท้าซ้าย-ขวา -->
+                            <path id="ph-foot-l" d="M 76 274 Q 94 268 106 276 L 106 286 L 74 286 Z" fill="rgba(255,255,255,0.45)" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4 3"/>
+                            <path id="ph-foot-r" d="M 114 276 Q 126 268 144 274 L 146 286 L 114 286 Z" fill="rgba(255,255,255,0.45)" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4 3"/>
+                        </g>
+
+                        <!-- ========== อวัยวะทั้ง 17 ส่วนที่จะค่อยๆ ปรากฏเมื่อตอบถูก ========== -->
+
+                        <!-- 13. หลัง (back) -->
+                        <g id="part-back" class="hidden">
+                            <path d="M 66 144 Q 110 134 154 144 L 166 226 Q 110 236 54 226 Z" fill="#fb923c" stroke="#c2410c" stroke-width="2.5" stroke-linejoin="round"/>
+                            <path d="M 74 148 Q 110 140 146 148 L 154 218 Q 110 226 66 218 Z" fill="#fdba74" opacity="0.6"/>
+                        </g>
+
+                        <!-- 11. คอ (neck) -->
+                        <g id="part-neck" class="hidden">
+                            <rect x="97" y="120" width="26" height="26" rx="8" fill="#f5cba7" stroke="#d98a5c" stroke-width="2.8"/>
+                        </g>
+
+                        <!-- เสื้อเชฟหลัก -->
+                        <g id="torso-shirt-layer">
+                            <path d="M 70 144 Q 110 136 150 144 L 154 218 Q 110 224 66 218 Z" fill="#ff7043" fill-opacity="0.88" stroke="#bf360c" stroke-width="2.8" stroke-linejoin="round"/>
+                            <path d="M 92 141 L 110 160 L 128 141" fill="#ffffff" stroke="#bf360c" stroke-width="2.2" stroke-linejoin="round"/>
+                        </g>
+
+                        <!-- 12. หัวใจ (heart) -->
+                        <g id="part-heart" class="hidden">
+                            <circle cx="123" cy="176" r="14" fill="#fee2e2" opacity="0.9"/>
+                            <path d="M 123 185 C 123 185, 111 177, 111 170 C 111 166, 114 163, 118 163 C 120.5 163, 122.2 164.5, 123 166.5 C 123.8 164.5, 125.5 163, 128 163 C 132 163, 135 166, 135 170 C 135 177, 123 185, 123 185 Z" 
+                                  fill="#ef4444" stroke="#991b1b" stroke-width="1.8"/>
+                            <circle cx="118.5" cy="168.5" r="1.8" fill="#ffffff"/>
+                        </g>
+
+                        <!-- 15. แขน (arm) -->
+                        <g id="part-arm" class="hidden">
+                            <path d="M 72 150 Q 46 176 52 204" fill="none" stroke="#ffd8be" stroke-width="15" stroke-linecap="round"/>
+                            <path d="M 72 150 Q 46 176 52 204" fill="none" stroke="#d98a5c" stroke-width="15" stroke-linecap="round" opacity="0.22"/>
+                            <path d="M 72 146 L 56 164" stroke="#ff7043" stroke-width="17" stroke-linecap="round"/>
+
+                            <path d="M 148 150 Q 174 176 168 204" fill="none" stroke="#ffd8be" stroke-width="15" stroke-linecap="round"/>
+                            <path d="M 148 150 Q 174 176 168 204" fill="none" stroke="#d98a5c" stroke-width="15" stroke-linecap="round" opacity="0.22"/>
+                            <path d="M 148 146 L 164 164" stroke="#ff7043" stroke-width="17" stroke-linecap="round"/>
+                        </g>
+
+                        <!-- 14. มือ (hand) -->
+                        <g id="part-hand" class="hidden">
+                            <circle cx="52" cy="208" r="9.5" fill="#ffd8be" stroke="#d98a5c" stroke-width="2.8"/>
+                            <circle cx="44" cy="205" r="3.2" fill="#ffd8be" stroke="#d98a5c" stroke-width="2"/>
+                            <circle cx="168" cy="208" r="9.5" fill="#ffd8be" stroke="#d98a5c" stroke-width="2.8"/>
+                            <circle cx="176" cy="205" r="3.2" fill="#ffd8be" stroke="#d98a5c" stroke-width="2"/>
+                        </g>
+
+                        <!-- 16. ขา (leg) -->
+                        <g id="part-leg" class="hidden">
+                            <rect x="84" y="216" width="20" height="58" rx="9" fill="#334155" stroke="#1e293b" stroke-width="3"/>
+                            <rect x="116" y="216" width="20" height="58" rx="9" fill="#334155" stroke="#1e293b" stroke-width="3"/>
+                        </g>
+
+                        <!-- 17. เท้า / บาท (foot) -->
+                        <g id="part-foot" class="hidden">
+                            <path d="M 76 274 Q 94 267 106 276 L 106 287 L 74 287 Z" fill="#ef4444" stroke="#991b1b" stroke-width="2.5" stroke-linejoin="round"/>
+                            <line x1="82" y1="283" x2="104" y2="283" stroke="#ffffff" stroke-width="2.5"/>
+                            <path d="M 114 276 Q 126 267 144 274 L 146 287 L 114 287 Z" fill="#ef4444" stroke="#991b1b" stroke-width="2.5" stroke-linejoin="round"/>
+                            <line x1="116" y1="283" x2="138" y2="283" stroke="#ffffff" stroke-width="2.5"/>
+                        </g>
+
+                        <!-- 6. หู (ear) -->
+                        <g id="part-ear" class="hidden">
+                            <ellipse cx="64" cy="78" rx="10" ry="15" fill="#ffd3b6" stroke="#b56943" stroke-width="3"/>
+                            <path d="M 64 71 Q 60 78 64 85" fill="none" stroke="#b56943" stroke-width="2" stroke-linecap="round"/>
+                            <ellipse cx="156" cy="78" rx="10" ry="15" fill="#ffd3b6" stroke="#b56943" stroke-width="3"/>
+                            <path d="M 156 71 Q 160 78 156 85" fill="none" stroke="#b56943" stroke-width="2" stroke-linecap="round"/>
+                        </g>
+
+                        <!-- 1. ศีรษะ / หัว (head) -->
+                        <g id="part-head" class="hidden">
+                            <ellipse cx="110" cy="76" rx="43" ry="49" fill="#ffd8be" stroke="#d98a5c" stroke-width="3.5"/>
+                        </g>
+
+                        <!-- 3. หน้า / ใบหน้า (face) -->
+                        <g id="part-face" class="hidden">
+                            <ellipse cx="110" cy="78" rx="37" ry="43" fill="#ffe6d5"/>
+                        </g>
+
+                        <!-- 2. ผม (hair) -->
+                        <g id="part-hair" class="hidden">
+                            <path d="M 65 68 C 61 24, 159 24, 155 68 C 147 44, 134 41, 124 50 C 115 40, 105 40, 96 50 C 86 41, 73 44, 65 68 Z" 
+                                  fill="#3e2723" stroke="#1b0f0a" stroke-width="3" stroke-linejoin="round"/>
+                            <path d="M 106 27 Q 114 13 124 22 Q 117 27 113 28" fill="#3e2723" stroke="#1b0f0a" stroke-width="2.5"/>
+                        </g>
+
+                        <!-- 4. ตา / ดวงตา (eye) -->
+                        <g id="part-eye" class="hidden">
+                            <path d="M 80 62 Q 90 56 100 61" fill="none" stroke="#3e2723" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M 120 61 Q 130 56 140 62" fill="none" stroke="#3e2723" stroke-width="3" stroke-linecap="round"/>
+                            <circle cx="90" cy="74" r="8" fill="#ffffff" stroke="#2c1810" stroke-width="2"/>
+                            <circle cx="90" cy="74" r="5.5" fill="#2c1810"/>
+                            <circle cx="88" cy="72" r="2" fill="#ffffff"/>
+
+                            <circle cx="130" cy="74" r="8" fill="#ffffff" stroke="#2c1810" stroke-width="2"/>
+                            <circle cx="130" cy="74" r="5.5" fill="#2c1810"/>
+                            <circle cx="128" cy="72" r="2" fill="#ffffff"/>
+                        </g>
+
+                        <!-- 7. แก้ม (cheek) -->
+                        <g id="part-cheek" class="hidden">
+                            <ellipse cx="79" cy="87" rx="8" ry="5" fill="#ff8a80" opacity="0.85"/>
+                            <ellipse cx="141" cy="87" rx="8" ry="5" fill="#ff8a80" opacity="0.85"/>
+                        </g>
+
+                        <!-- 5. จมูก (nose) -->
+                        <g id="part-nose" class="hidden">
+                            <path d="M 110 76 L 106 86 Q 110 89 114 86" fill="none" stroke="#a65e38" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        </g>
+
+                        <!-- 8. ปาก / ริมฝีปาก (mouth) -->
+                        <g id="part-mouth" class="hidden">
+                            <path d="M 96 99 Q 110 111 124 99 Q 110 103 96 99 Z" fill="#ff5252" stroke="#9a0007" stroke-width="2.5" stroke-linejoin="round"/>
+                        </g>
+
+                        <!-- 9. ฟัน (teeth) -->
+                        <g id="part-teeth" class="hidden">
+                            <path d="M 99 100 Q 110 108 121 100 Z" fill="#ffffff" stroke="#9a0007" stroke-width="1.5"/>
+                            <line x1="106" y1="101" x2="106" y2="105" stroke="#cbd5e1" stroke-width="1.2"/>
+                            <line x1="114" y1="101" x2="114" y2="105" stroke="#cbd5e1" stroke-width="1.2"/>
+                        </g>
+
+                        <!-- 10. ลิ้น (tongue) -->
+                        <g id="part-tongue" class="hidden">
+                            <path d="M 105 104 C 105 111, 115 111, 115 104 Z" fill="#ff6090" stroke="#c2185b" stroke-width="1.8"/>
+                        </g>
+                    </svg>
+                </div>
+
+                <p class="text-[11px] text-sky-800 font-medium mt-1.5 text-center">
+                    ตอบถูกทีละข้อ เพื่อปลดล็อกอวัยวะให้ครบ 17 ส่วน!
+                </p>
+            </div>
+        </div>
+
+        <!-- 2. ตรงกลาง (6 คอลัมน์): จานซูชิปัจจุบัน + ชั้นวางเก็บจานซูชิที่ตอบสำเร็จแล้ว -->
+        <div class="lg:col-span-6 flex flex-col items-center order-1 lg:order-2">
+            <!-- แถบแจ้งเตือนผลการกดซูชิ (Toast) -->
+            <div class="h-7 mb-1 flex items-center justify-center">
+                <span id="feedback-toast" class="px-4 py-0.5 rounded-full font-bold text-xs sm:text-sm shadow-md transition-all opacity-0">
+                    ข้อความแจ้งเตือน
+                </span>
+            </div>
+
+            <!-- จานซูชิปัจจุบัน -->
+            <div id="main-sushi-plate" class="sushi-plate w-full max-w-lg min-h-[140px] sm:min-h-[165px] rounded-[85px] p-3 sm:p-4 flex flex-col items-center justify-center relative transition-transform">
+                <div class="absolute -top-3 right-6 bg-orange-500 text-white border-2 border-white px-3 py-0.5 rounded-full text-xs font-bold shadow">
+                    จานปัจจุบัน: <span id="plate-counter">0 / 1</span> คำ
+                </div>
+
+                <div id="plate-slots" class="flex flex-wrap items-center justify-center gap-2 sm:gap-4 w-full">
+                    <!-- เติมด้วย JS -->
+                </div>
+            </div>
+
+            <!-- ชั้นวางเก็บจานซูชิที่ตอบสำเร็จแล้ว -->
+            <div class="w-full max-w-lg mt-3">
+                <div class="flex items-center justify-between px-2 mb-1">
+                    <span class="text-xs font-bold text-amber-950 flex items-center gap-1">
+                        🍽️ ชั้นวางจานซูชิที่เสิร์ฟสำเร็จแล้ว (เก็บสะสมไว้ตลอดเกม)
+                    </span>
+                    <span id="completed-plates-count" class="text-xs font-extrabold bg-amber-200 text-amber-900 px-2 py-0.5 rounded-full border border-amber-400">
+                        0 / 17 จาน
+                    </span>
+                </div>
+                <div id="completed-plates-shelf" class="collected-shelf rounded-2xl p-2 min-h-[78px] flex items-center gap-2 overflow-x-auto custom-scroll">
+                    <div class="w-full text-center text-amber-200/80 text-xs py-3">
+                        ยังไม่มีจานซูชิที่เสิร์ฟสำเร็จ • ตอบถูกเพื่อเก็บจานซูชิไว้ที่นี่!
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. ฝั่งขวา (3 คอลัมน์): การ์ดแสดงเฉพาะอวัยวะที่กำลังถาม + ป้ายชื่ออวัยวะชัดเจน -->
+        <div class="lg:col-span-3 flex flex-col items-center order-3">
+            <div id="organ-focus-card" class="organ-focus-card rounded-3xl p-3 w-full max-w-[260px] lg:max-w-full flex flex-col items-center relative">
+                <span id="organ-category-badge" class="bg-amber-100 text-amber-800 border border-amber-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full mb-1.5 text-center">
+                    🔍 ส่วนศีรษะและใบหน้า
+                </span>
+
+                <!-- กรอบแสดงภาพ SVG เฉพาะอวัยวะนั้นๆ -->
+                <div id="organ-illustration-box" class="w-32 h-28 sm:w-36 sm:h-32 bg-gradient-to-b from-orange-50 to-amber-100/70 rounded-2xl border-2 border-orange-200 flex items-center justify-center p-1.5 overflow-hidden shadow-inner relative">
+                    <!-- ภาพ SVG ของอวัยวะปัจจุบันจะถูกใส่ที่นี่ -->
+                </div>
+
+                <!-- ป้ายชื่ออวัยวะขนาดใหญ่ชัดเจนด้านล่างภาพ -->
+                <div class="organ-name-banner w-full mt-2.5 py-1.5 px-2.5 rounded-2xl text-center">
+                    <p class="text-[10px] text-orange-100 font-medium leading-none mb-0.5">อวัยวะที่กำลังถาม</p>
+                    <h2 id="organ-label-text" class="text-base sm:text-xl font-extrabold text-white tracking-wide drop-shadow">
+                        ศีรษะ / หัว
+                    </h2>
+                </div>
+
+                <!-- หมายเหตุพิเศษ -->
+                <p id="organ-note-text" class="hidden text-[11px] text-amber-800 bg-amber-100/90 border border-amber-300 rounded-xl px-2 py-1 mt-1.5 text-center font-medium leading-tight">
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==================== ด้านล่าง: สายพานซูชิ 5 ชิ้น ==================== -->
+    <footer class="w-full mt-1 z-20">
+        <div class="h-2.5 bg-gradient-to-r from-amber-800 via-amber-600 to-amber-800 border-t-2 border-amber-400"></div>
+        
+        <div class="conveyor-belt h-36 sm:h-44 w-full overflow-hidden flex items-center relative">
+            <div class="conveyor-stripes absolute inset-0 pointer-events-none"></div>
+
+            <!-- ลูกกลิ้งฟันเฟืองหมุนซ้าย-ขวาของสายพาน -->
+            <div class="pointer-events-none absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 opacity-45">
+                <svg viewBox="0 0 48 48" class="w-9 h-9 sm:w-11 sm:h-11 belt-roller-spin">
+                    <circle cx="24" cy="24" r="20" fill="#475569" stroke="#94a3b8" stroke-width="3"/>
+                    <circle cx="24" cy="24" r="7" fill="#1e293b" stroke="#cbd5e1" stroke-width="2"/>
+                    <line x1="24" y1="4" x2="24" y2="44" stroke="#94a3b8" stroke-width="2.5"/>
+                    <line x1="4" y1="24" x2="44" y2="24" stroke="#94a3b8" stroke-width="2.5"/>
+                </svg>
+            </div>
+            <div class="pointer-events-none absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 opacity-45">
+                <svg viewBox="0 0 48 48" class="w-9 h-9 sm:w-11 sm:h-11 belt-roller-spin">
+                    <circle cx="24" cy="24" r="20" fill="#475569" stroke="#94a3b8" stroke-width="3"/>
+                    <circle cx="24" cy="24" r="7" fill="#1e293b" stroke="#cbd5e1" stroke-width="2"/>
+                    <line x1="24" y1="4" x2="24" y2="44" stroke="#94a3b8" stroke-width="2.5"/>
+                    <line x1="4" y1="24" x2="44" y2="24" stroke="#94a3b8" stroke-width="2.5"/>
+                </svg>
+            </div>
+
+            <div id="conveyor-track" class="relative w-full h-full flex items-center">
+                <!-- ซูชิ 5 ชิ้นถูกสร้างที่นี่ -->
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== หน้าต่างสรุปคะแนนและเวลาของคุณเมื่อจบเกม ==================== -->
+    <div id="end-screen" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-3 sm:p-4">
+        <div class="bg-[#fffaf2] border-4 border-amber-400 rounded-3xl max-w-3xl w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden">
+            <!-- ส่วนหัวแสดงผลลัพธ์: ชื่อผู้เล่น + คะแนนของคุณ + เวลาของคุณ + ข้อความชวนเปรียบเทียบหาที่ 1 -->
+            <div class="p-4 sm:p-6 text-center bg-gradient-to-b from-orange-100 via-amber-50 to-transparent border-b-2 border-orange-200">
+                <div class="text-3xl sm:text-4xl mb-1">🎉🍣✨</div>
+                <h2 class="text-xl sm:text-3xl font-extrabold text-orange-600">
+                    ยินดีด้วย <span id="end-player-name" class="underline decoration-amber-400">เชฟ</span>! ประกอบร่างครบทั้ง 17 อวัยวะแล้ว
+                </h2>
+
+                <!-- การ์ดแสดงคะแนนของคุณ และ เวลาของคุณ แบบโดดเด่นชัดเจน -->
+                <div class="mt-3.5 grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-xl mx-auto">
+                    <div class="bg-gradient-to-b from-green-500 to-green-600 text-white px-4 py-3 rounded-2xl border-3 border-yellow-300 shadow-lg flex flex-col items-center justify-center">
+                        <span class="text-xs sm:text-sm font-bold text-green-100 uppercase tracking-wide">⭐ คะแนนของคุณ</span>
+                        <span id="final-score" class="text-3xl sm:text-4xl font-extrabold text-yellow-200 drop-shadow mt-0.5">0</span>
+                        <span id="final-bonus-note" class="text-[11px] font-semibold text-green-100 mt-0.5">(รวมโบนัสความไว +0 คะแนน)</span>
+                    </div>
+
+                    <div class="bg-gradient-to-b from-sky-500 to-blue-600 text-white px-4 py-3 rounded-2xl border-3 border-sky-200 shadow-lg flex flex-col items-center justify-center">
+                        <span class="text-xs sm:text-sm font-bold text-sky-100 uppercase tracking-wide">⏱️ เวลาของคุณ</span>
+                        <span id="final-time" class="text-3xl sm:text-4xl font-extrabold text-yellow-200 drop-shadow mt-0.5">00:00</span>
+                        <span id="star-rating" class="text-base sm:text-lg mt-0.5">⭐⭐⭐</span>
+                    </div>
+                </div>
+
+                <!-- แบนเนอร์ข้อความท้าประลองให้เปรียบเทียบกับเพื่อนเพื่อหาที่ 1 -->
+                <div class="mt-3.5 max-w-xl mx-auto bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-400 text-amber-950 px-4 py-2.5 rounded-2xl border-2 border-orange-500 shadow-md">
+                    <p class="text-base sm:text-xl font-extrabold flex items-center justify-center gap-2">
+                        <span>🏆</span>
+                        <span>ให้ลองเปรียบเทียบกันเพื่อหาที่ 1</span>
+                        <span>🏆</span>
+                    </p>
+                    <p class="text-xs sm:text-sm font-semibold text-amber-900 mt-0.5">
+                        นำคะแนนและเวลาที่ทำได้ไปเทียบกับเพื่อนๆ เลย ใครคะแนนสูงและไวที่สุดคือแชมป์อันดับ 1!
+                    </p>
+                </div>
+            </div>
+
+            <!-- ส่วนทบทวนคำศัพท์ทั้งหมด 17 อวัยวะ -->
+            <div class="px-4 sm:px-5 pt-3 pb-1.5 bg-orange-50/70 border-b border-orange-200 flex items-center justify-between">
+                <h3 class="font-extrabold text-orange-800 text-sm sm:text-base">
+                    📖 สรุปคำราชาศัพท์หมวดอวัยวะร่างกาย (17 อวัยวะ)
+                </h3>
+                <span class="text-xs font-bold text-stone-500">ทบทวนคำศัพท์ทั้งหมด</span>
+            </div>
+
+            <div class="p-4 sm:p-5 overflow-y-auto flex-1 custom-scroll">
+                <div id="end-summary-list" class="space-y-3">
+                    <!-- รายการสรุปคำศัพท์ -->
+                </div>
+            </div>
+
+            <!-- ปุ่มด้านล่าง: เล่นอีกครั้ง & เปลี่ยนชื่อผู้เล่น -->
+            <div class="p-3.5 sm:p-4 bg-orange-100/80 border-t border-orange-200 flex flex-wrap justify-center gap-3">
+                <button onclick="restartGame()" class="game-btn bg-gradient-to-b from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white font-bold text-base sm:text-lg py-2.5 px-7 rounded-2xl border-2 border-white">
+                    🔄 เล่นอีกครั้ง
+                </button>
+                <button onclick="backToTitleScreen()" class="game-btn bg-gradient-to-b from-sky-500 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-white font-bold text-base sm:text-lg py-2.5 px-6 rounded-2xl border-2 border-white">
+                    👤 เปลี่ยนชื่อผู้เล่น
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== หน้าต่างคลังคำศัพท์ (เปิดดูได้ตลอดเวลา) ==================== -->
+    <div id="vocab-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/65 backdrop-blur-sm p-4">
+        <div class="bg-[#fffdf7] border-4 border-sky-400 rounded-3xl max-w-2xl w-full max-h-[86vh] flex flex-col shadow-2xl overflow-hidden">
+            <div class="bg-gradient-to-r from-sky-500 to-blue-500 text-white px-5 py-3.5 flex items-center justify-between">
+                <h3 class="text-lg sm:text-2xl font-extrabold">📖 คลังคำราชาศัพท์: หมวดอวัยวะร่างกาย (17 คำ)</h3>
+                <button onclick="toggleVocabModal(false)" class="bg-white/20 hover:bg-white/30 text-white font-bold w-9 h-9 rounded-full flex items-center justify-center text-xl">
+                    ✕
+                </button>
+            </div>
+            <div class="px-4 sm:px-5 pt-3 pb-2 bg-sky-50/70 border-b border-sky-200">
+                <input
+                    type="text"
+                    id="vocab-search-input"
+                    oninput="filterVocabGuide()"
+                    placeholder="🔍 ค้นหาชื่ออวัยวะ, หมวดหมู่ หรือ คำราชาศัพท์ (เช่น หัวใจ, พระหัตถ์, เส้นพระเจ้า)..."
+                    class="w-full bg-white border-2 border-sky-300 focus:border-sky-500 focus:outline-none rounded-xl px-3.5 py-1.5 text-sm font-medium text-stone-800"
+                />
+            </div>
+            <div id="vocab-guide-list" class="p-4 sm:p-5 overflow-y-auto space-y-3 flex-1 custom-scroll">
+                <!-- รายการคำศัพท์ -->
+            </div>
+            <div class="p-3.5 bg-sky-50 border-t border-sky-200 text-center">
+                <button onclick="toggleVocabModal(false)" class="game-btn bg-sky-500 hover:bg-sky-600 text-white font-bold px-8 py-2 rounded-xl">
+                    ปิดคลังคำศัพท์
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== 1. ข้อมูลคำศัพท์ทั้ง 17 อวัยวะ แบ่งเป็น 3 หมวดหมู่ ====================
+        const ORGAN_VOCAB = [
+            // หมวด 1: ส่วนศีรษะและใบหน้า (10 อวัยวะ)
+            {
+                id: 'head',
+                category: 'ส่วนศีรษะและใบหน้า',
+                organ: 'ศีรษะ / หัว',
+                words: ['พระเศียร'],
+                note: ''
+            },
+            {
+                id: 'hair',
+                category: 'ส่วนศีรษะและใบหน้า',
+                organ: 'ผม',
+                words: ['พระเกศา'],
+                note: 'เส้นผมของพระมหากษัตริย์ใช้ "เส้นพระเจ้า"'
+            },
+            {
+                id: 'face',
+                category: 'ส่วนศีรษะและใบหน้า',
+                organ: 'หน้า / ใบหน้า',
+                words: ['พระพักตร์'],
+                note: ''
+            },
+            {
+                id: 'eye',
+                category: 'ส่วนศีรษะและใบหน้า',
+                organ: 'ตา / ดวงตา',
+                words: ['พระเนตร', 'พระนัยนะ', 'พระจักษุ'],
+                note: 'มี 3 คำราชาศัพท์ เก็บให้ครบทุกคำ!'
+            },
+            {
+                id: 'nose',
+                category: 'ส่วนศีรษะและใบหน้า',
+                organ: 'จมูก',
+                words: ['พระนาสิก'],
+                note: ''
+            },
+            {
+                id: 'ear',
+                category: 'ส่วนศีรษะและใบหน้า',
+                organ: 'หู',
+                words: ['พระกรรณ'],
+                note: ''
+            },
+            {
+                id: 'cheek',
+                category: 'ส่วนศีรษะและใบหน้า',
+                organ: 'แก้ม',
+                words: ['พระปราง'],
+                note: ''
+            },
+            {
+                id: 'mouth',
+                category: 'ส่วนศีรษะและใบหน้า',
+                organ: 'ปาก / ริมฝีปาก',
+                words: ['พระโอษฐ์'],
+                note: ''
+            },
+            {
+                id: 'teeth',
+                category: 'ส่วนศีรษะและใบหน้า',
+                organ: 'ฟัน',
+                words: ['พระทนต์'],
+                note: ''
+            },
+            {
+                id: 'tongue',
+                category: 'ส่วนศีรษะและใบหน้า',
+                organ: 'ลิ้น',
+                words: ['พระชิวหา'],
+                note: ''
+            },
+
+            // หมวด 2: ส่วนลำตัวและอวัยวะภายใน (3 อวัยวะ)
+            {
+                id: 'neck',
+                category: 'ส่วนลำตัวและอวัยวะภายใน',
+                organ: 'คอ',
+                words: ['พระศอ', 'พระสอ'],
+                note: 'ใช้ได้ทั้ง "พระศอ" หรือ "พระสอ" เก็บให้ครบทั้ง 2 คำ!'
+            },
+            {
+                id: 'heart',
+                category: 'ส่วนลำตัวและอวัยวะภายใน',
+                organ: 'หัวใจ',
+                words: ['พระหทัย'],
+                note: ''
+            },
+            {
+                id: 'back',
+                category: 'ส่วนลำตัวและอวัยวะภายใน',
+                organ: 'หลัง',
+                words: ['พระปฤษฎางค์'],
+                note: ''
+            },
+
+            // หมวด 3: ส่วนแขนและขา (4 อวัยวะ)
+            {
+                id: 'hand',
+                category: 'ส่วนแขนและขา',
+                organ: 'มือ',
+                words: ['พระหัตถ์'],
+                note: ''
+            },
+            {
+                id: 'arm',
+                category: 'ส่วนแขนและขา',
+                organ: 'แขน',
+                words: ['พระกร'],
+                note: ''
+            },
+            {
+                id: 'leg',
+                category: 'ส่วนแขนและขา',
+                organ: 'ขา',
+                words: ['พระเพลา'],
+                note: 'หรือแปลว่า ตัก'
+            },
+            {
+                id: 'foot',
+                category: 'ส่วนแขนและขา',
+                organ: 'เท้า / บาท',
+                words: ['พระบาท'],
+                note: ''
+            }
+        ];
+
+        // ==================== 2. รูปแบบหน้าซูชิแต่ละชนิด (เปลี่ยนทุกข้อ) ====================
+        const SUSHI_STYLES = [
+            { name: 'หน้าแซลมอน', topColor: '#ff7043', stripeColor: '#ffe0b2', nori: false, textColor: '#ffffff', strokeColor: '#7f1d1d' },
+            { name: 'หน้าไข่หวาน', topColor: '#ffca28', stripeColor: '#fff59d', nori: true, textColor: '#ffffff', strokeColor: '#451a03' },
+            { name: 'หน้าทูน่ามากุโระ', topColor: '#e53935', stripeColor: '#ffcdd2', nori: false, textColor: '#ffffff', strokeColor: '#450a0a' },
+            { name: 'หน้ากุ้งต้มเอบิ', topColor: '#ff8a65', stripeColor: '#ffffff', nori: false, textColor: '#ffffff', strokeColor: '#7c2d12' },
+            { name: 'หน้าปลาหมึกทาโกะ', topColor: '#ec407a', stripeColor: '#f8bbd0', nori: true, textColor: '#ffffff', strokeColor: '#500724' },
+            { name: 'หน้าอะโวคาโด', topColor: '#66bb6a', stripeColor: '#c8e6c9', nori: true, textColor: '#ffffff', strokeColor: '#14532d' },
+            { name: 'หน้าปลาไหลอุนางิ', topColor: '#8d6e63', stripeColor: '#d7ccc8', nori: true, textColor: '#ffffff', strokeColor: '#27130c' },
+            { name: 'หน้าไข่ปลาแซลมอน', topColor: '#ff5722', stripeColor: '#ffccbc', nori: true, textColor: '#ffffff', strokeColor: '#431407' }
+        ];
+
+        const RANDOM_CHEF_NAMES = [
+            'เชฟต้นกล้า', 'เชฟใบเตย', 'เชฟข้าวปั้น', 'เชฟแซลมอน',
+            'เชฟไข่หวาน', 'เชฟมะลิ', 'เชฟภูผา', 'เชฟน้ำหวาน',
+            'เชฟปันปัน', 'เชฟซากุระ', 'เชฟวาซาบิ', 'เชฟโมจิ'
+        ];
+
+        // ==================== 3. สถานะของเกม (Game State) ====================
+        let playerName = 'เชฟผู้ท้าชิง';
+        let currentIndex = 0;
+        let score = 0;
+        let displayedScore = 0;
+        let comboStreak = 0;
+        let wrongAttempts = 0;
+        let collectedWords = [];
+        let currentSushiBatch = [];
+        let completedPlatesHistory = [];
+        let unlockedBodyParts = new Set();
+
+        let beltOffsetX = 0;
+        let animationFrameId = null;
+        let lastFrameTime = 0;
+        let isPaused = true;
+        let pausedByModal = false;
+        let soundEnabled = true;
+        let audioCtx = null;
+        let elapsedSeconds = 0;
+        let timerIntervalId = null;
+        let toastTimeoutId = null;
+
+        // ==================== 4. ระบบเสียงเอฟเฟกต์ Web Audio API ====================
+        function initAudio() {
+            if (!audioCtx) {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                if (AudioContextClass) {
+                    audioCtx = new AudioContextClass();
+                }
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            const btn = document.getElementById('sound-btn');
+            if (btn) btn.textContent = soundEnabled ? '🔊' : '🔇';
+        }
+
+        function playSound(type) {
+            if (!soundEnabled) return;
+            try {
+                initAudio();
+                if (!audioCtx) return;
+
+                const now = audioCtx.currentTime;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                if (type === 'correct') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(523.25, now); // C5
+                    osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.14); // G5
+                    gain.gain.setValueAtTime(0.18, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+                    osc.start(now);
+                    osc.stop(now + 0.28);
+                } else if (type === 'wrong') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(190, now);
+                    osc.frequency.linearRampToValueAtTime(135, now + 0.22);
+                    gain.gain.setValueAtTime(0.14, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.26);
+                    osc.start(now);
+                    osc.stop(now + 0.26);
+                } else if (type === 'complete') {
+                    const notes = [523.25, 659.25, 783.99, 1046.5];
+                    notes.forEach((freq, idx) => {
+                        const o = audioCtx.createOscillator();
+                        const g = audioCtx.createGain();
+                        o.connect(g);
+                        g.connect(audioCtx.destination);
+                        o.type = 'triangle';
+                        o.frequency.setValueAtTime(freq, now + idx * 0.08);
+                        g.gain.setValueAtTime(0.16, now + idx * 0.08);
+                        g.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.3);
+                        o.start(now + idx * 0.08);
+                        o.stop(now + idx * 0.08 + 0.3);
+                    });
+                }
+            } catch (e) {
+                // ข้ามหากเบราว์เซอร์บล็อกเสียงอัตโนมัติ
+            }
+        }
+
+        // ==================== 5. ฟังก์ชันสร้างภาพ SVG ซูชิและอวัยวะเดี่ยว ====================
+        function escapeHTML(str) {
+            return String(str).replace(/[&<>"']/g, m => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            }[m]));
+        }
+
+        function createSushiSVG(style, word, mode = 'normal') {
+            const isMini = mode === 'mini';
+            const isPlate = mode === 'plate';
+            const sizeClass = isMini
+                ? 'w-16 h-14'
+                : (isPlate ? 'w-24 h-20 sm:w-28 sm:h-24' : 'w-28 h-24 sm:w-32 sm:h-28');
+
+            const fontSize = word.length >= 11 ? 15 : (word.length >= 9 ? 17 : 20);
+            const steamMarkup = mode === 'normal'
+                ? `
+                    <path class="sushi-steam-1" d="M 48 22 Q 44 14 48 6" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+                    <path class="sushi-steam-2" d="M 92 20 Q 96 12 92 4" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+                  `
+                : '';
+
+            const noriStrap = style.nori
+                ? `<rect x="61" y="25" width="18" height="62" rx="3" fill="#1e293b" stroke="#0f172a" stroke-width="2"/>`
+                : '';
+
+            return `
+                <svg viewBox="0 0 140 112" class="${sizeClass} drop-shadow-md overflow-visible">
+                    ${steamMarkup}
+                    <g class="sushi-idle-body">
+                        <!-- เงาใต้ก้อนข้าว -->
+                        <ellipse cx="70" cy="98" rx="48" ry="8" fill="rgba(0,0,0,0.2)"/>
+                        <!-- ก้อนข้าวปั้นน่ารัก -->
+                        <rect x="20" y="45" width="100" height="48" rx="22" fill="#ffffff" stroke="#d6d3d1" stroke-width="3.5"/>
+                        <!-- หน้าซูชิ -->
+                        <path d="M 14 48 C 14 24, 126 24, 126 48 C 126 57, 115 60, 70 60 C 25 60, 14 57, 14 48 Z"
+                              fill="${style.topColor}" stroke="#3e2723" stroke-width="3.2"/>
+                        <!-- ลายไขมัน/แถบสีบนหน้าซูชิ -->
+                        <path d="M 32 35 Q 42 44 35 53 M 64 33 Q 74 44 67 54 M 98 35 Q 108 44 101 53"
+                              fill="none" stroke="${style.stripeColor}" stroke-width="3.5" stroke-linecap="round" opacity="0.75"/>
+                        ${noriStrap}
+                        <!-- ใบหน้าน่ารักบนก้อนข้าว -->
+                        <g class="sushi-eye-blink">
+                            <circle cx="52" cy="73" r="3.6" fill="#292524"/>
+                            <circle cx="88" cy="73" r="3.6" fill="#292524"/>
+                        </g>
+                        <ellipse cx="42" cy="78" rx="5.5" ry="3.2" fill="#fda4af" opacity="0.9"/>
+                        <ellipse cx="98" cy="78" rx="5.5" ry="3.2" fill="#fda4af" opacity="0.9"/>
+                        <path d="M 65 75 Q 70 80 75 75" fill="none" stroke="#292524" stroke-width="2.6" stroke-linecap="round"/>
+                        <!-- ป้ายคำราชาศัพท์ -->
+                        <text x="70" y="47" text-anchor="middle" font-family="Kanit, sans-serif" font-weight="800"
+                              font-size="${fontSize}" fill="${style.textColor}" stroke="${style.strokeColor}"
+                              stroke-width="4" paint-order="stroke fill" stroke-linejoin="round">
+                            ${escapeHTML(word)}
+                        </text>
+                    </g>
+                </svg>
+            `;
+        }
+
+        /**
+         * สร้างภาพการ์ตูนซูมเฉพาะส่วนสำหรับอวัยวะทั้ง 17 อวัยวะฝั่งขวาและในคลังคำศัพท์
+         */
+        function getIsolatedOrganSVG(id) {
+            switch (id) {
+                case 'head':
+                    return `<svg viewBox="0 0 120 120" class="w-full h-full">
+                        <ellipse cx="60" cy="64" rx="34" ry="40" fill="#ffd8be" stroke="#c27849" stroke-width="3.5"/>
+                        <path d="M 28 54 C 26 22, 94 22, 92 54 C 82 38, 70 36, 60 44 C 50 36, 38 38, 28 54 Z" fill="#4e342e"/>
+                        <path d="M 36 22 L 60 10 L 84 22" fill="none" stroke="#f59e0b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="60" cy="10" r="4" fill="#f59e0b"/>
+                    </svg>`;
+                case 'hair':
+                    return `<svg viewBox="0 0 120 120" class="w-full h-full">
+                        <path d="M 22 76 C 18 24, 102 24, 98 76 C 88 54, 76 52, 66 64 C 58 50, 48 50, 40 64 C 32 52, 26 54, 22 76 Z" fill="#3e2723" stroke="#1b0f0a" stroke-width="3.5" stroke-linejoin="round"/>
+                        <path d="M 54 30 Q 64 12 76 22 Q 67 30 62 31" fill="#3e2723" stroke="#1b0f0a" stroke-width="3"/>
+                        <path d="M 38 42 Q 52 34 66 42" fill="none" stroke="#8d6e63" stroke-width="2.5" stroke-linecap="round"/>
+                    </svg>`;
+                case 'face':
+                    return `<svg viewBox="0 0 120 120" class="w-full h-full">
+                        <ellipse cx="60" cy="60" rx="36" ry="42" fill="#ffe4d1" stroke="#d98a5c" stroke-width="3.5"/>
+                        <circle cx="47" cy="54" r="4.5" fill="#3e2723"/>
+                        <circle cx="73" cy="54" r="4.5" fill="#3e2723"/>
+                        <ellipse cx="39" cy="65" rx="6" ry="3.5" fill="#ff8a80" opacity="0.8"/>
+                        <ellipse cx="81" cy="65" rx="6" ry="3.5" fill="#ff8a80" opacity="0.8"/>
+                        <path d="M 50 74 Q 60 84 70 74" fill="none" stroke="#e53935" stroke-width="3.2" stroke-linecap="round"/>
+                    </svg>`;
+                case 'eye':
+                    return `<svg viewBox="0 0 120 120" class="w-full h-full">
+                        <path d="M 16 60 Q 60 22 104 60 Q 60 98 16 60 Z" fill="#ffffff" stroke="#2c1810" stroke-width="4" stroke-linejoin="round"/>
+                        <circle cx="60" cy="60" r="21" fill="#4e342e"/>
+                        <circle cx="60" cy="60" r="11" fill="#1a0f0a"/>
+                        <circle cx="52" cy="52" r="5.5" fill="#ffffff"/>
+                        <circle cx="68" cy="66" r="2.5" fill="#ffffff"/>
+                    </svg>`;
+                case 'nose':
+                    return `<svg viewBox="0 0 120 120" class="w-full h-full">
+                        <path d="M 60 24 L 46 76 Q 60 92 76 76 L 68 54" fill="#ffd3b6" stroke="#b56943" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                        <ellipse cx="51" cy="77" rx="4" ry="2.5" fill="#8d4925"/>
+                        <ellipse cx="69" cy="77" rx="4" ry="2.5" fill="#8d4925"/>
+                    </svg>`;
+                case 'ear':
+                    return `<svg viewBox="0 0 120 120" class="w-full h-full">
+                        <path d="M 46 24 C 82 18, 92 64, 72 92 C 58 106, 38 96, 42 78 C 44 68, 52 64, 52 54 C 52 44, 38 30, 46 24 Z" fill="#ffd3b6" stroke="#b56943" stroke-width="4"/>
+                        <path d="M 54 38 C 72 38, 74 66, 58 76" fill="none" stroke="#b56943" stroke-width="3.2" stroke-linecap="round"/>
+                    </svg>`;
+                case 'cheek':
+                    return `<svg viewBox="0 0 120 120" class="w-full h-full">
+                        <path d="M 28 24 Q 24 88 68 98 Q 96 96 96 60" fill="#ffe4d1" stroke="#d98a5c" stroke-width="3.5" stroke-linecap="round"/>
+                        <ellipse cx="62" cy="64" rx="22" ry="15" fill="#ff8a80" opacity="0.85"/>
+                        <line x1="52" y1="67" x2="57" y2="60" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+                        <line x1="63" y1="68" x2="68" y2="61" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+                    </svg>`;
+                case 'mouth':
+                    return `<svg viewBox="0 0 120 120" class="w-full h-full">
+                        <path d="M 18 60 Q 42 40 60 50 Q 78 40 102 60 Q 60 56 18 60 Z" fill="#ff5252" stroke="#9a0007" stroke-width="3.2" stroke-linejoin="round"/>
+                        <path d="M 18 60 Q 60 94 102 60 Q 60 66 18 60 Z" fill="#ff1744" stroke="#9a0007" stroke-width="3.2" stroke-linejoin="round"/>
+                    </svg>`;
+                case 'teeth':
+                    return `<svg viewBox="0 0 120 120" class="w-full h-full">
+                        <path d="M 22 44 C 22 26, 54 26, 60 36 C 66 26, 98 26, 98 44 C 98 66, 86 96, 74 96 C 66 96, 64 76, 60 76 C 56 76, 54 96, 46 96 C 34 96, 22 66, 22 44 Z" fill="#ffffff" stroke="#64748b" stroke-width="4"/>
+                        <path d="M 36 42 Q 44 36 52 42" fill="none" stroke="#bae6fd" stroke-width="3" stroke-linecap="round"/>
+                    </svg>`;
+                case 'tongue':
+                    return `<svg viewBox="0 0 120 120" class="w-full h-full">
+                        <path d="M 24 44 Q 60 34 96 44" fill="none" stroke="#9a0007" stroke-width="5" stroke-linecap="round"/>
+                        <path d="M 36 44 L 36 74 C 36 96, 84 96, 84 74 L 84 44 Z" fill="#ff6090" stroke="#ad1457" stroke-width="3.5"/>
+                        <line x1="60" y1="46" x2="60" y2="78" stroke="#ad1457" stroke-width="3" stroke-linecap="round"/>
+                    </svg>`;
+                case 'neck':
+                    return `<svg viewBox="0 0 120 120" class="w-full h-full">
+                        <ellipse cx="60" cy="24" rx="28" ry="14" fill="#ffe4d1" stroke="#d98a5c" stroke-width="3"/>
+                        <rect x="42" y="32" width="36" height="44" rx="10" fill="#f5cba7" stroke="#c27849" stroke-width="3.5"/>
+                        <path d="M 22 86 Q 60 72 98 86 L 102 104 L 18 104 Z" fill="#ff7043" stroke="#bf360c" stroke-width="3"/>
+                        <path d="M 42 74 L 60 92 L 78 74" fill="none" stroke="#f59e0b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>`;
+                case 'heart':
+                    return `<svg viewBox="0 0 120 120" class="w-full h-full">
+                        <path d="M 60 98 C 60 98, 18 68, 18 42 C 18 26, 30 16, 44 16 C 52 16, 57 20, 60 27 C 63 20, 68 16, 76 16 C 90 16, 102 26, 102 42 C 102 68, 60 98, 60 98 Z" fill="#ef4444" stroke="#991b1b" stroke-width="4"/>
+                        <ellipse cx="38" cy="36" rx="7" ry="11" transform="rotate(-25 38 36)" fill="#fca5a5" opacity="0.85"/>
+                    </svg>`;
+                case 'back':
+                    return `<svg viewBox="0 0 120 120" class="w-full h-full">
+                        <circle cx="60" cy="24" r="14" fill="#3e2723"/>
+                        <path d="M 28 46 Q 60 36 92 46 L 98 98 Q 60 106 22 98 Z" fill="#ffd8be" stroke="#c27849" stroke-width="3.5" stroke-linejoin="round"/>
+                        <line x1="60" y1="44" x2="60" y2="96" stroke="#d98a5c" stroke-width="3" stroke-dasharray="5 4" stroke-linecap="round"/>
+                        <path d="M 38 56 Q 48 64 42 74 M 82 56 Q 72 64 78 74" fill="none" stroke="#d98a5c" stroke-width="2.8" stroke-linecap="round"/>
+                    </svg>`;
+                case 'hand':
+                    return `<svg viewBox="0 0 120 120" class="w-full h-full">
+                        <path d="M 42 98 L 42 66 L 26 56 C 21 53, 25 46, 31 49 L 44 56 L 44 26 C 44 20, 52 20, 52 26 L 52 50 L 56 20 C 56 14, 64 14, 64 20 L 64 50 L 68 24 C 68 18, 76 18, 76 24 L 76 52 L 80 34 C 80 28, 88 28, 88 34 L 86 72 C 86 88, 76 98, 62 98 Z" fill="#ffd8be" stroke="#c27849" stroke-width="3.5" stroke-linejoin="round"/>
+                    </svg>`;
+                case 'arm':
+                    return `<svg viewBox="0 0 120 120" class="w-full h-full">
+                        <path d="M 26 42 Q 36 86 74 84 L 94 62" fill="none" stroke="#ffd8be" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M 26 42 Q 36 86 74 84 L 94 62" fill="none" stroke="#c27849" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" opacity="0.22"/>
+                        <path d="M 46 66 Q 58 54 70 66" fill="none" stroke="#c27849" stroke-width="3" stroke-linecap="round"/>
+                        <circle cx="96" cy="58" r="10" fill="#ffd8be" stroke="#c27849" stroke-width="3"/>
+                    </svg>`;
+                case 'leg':
+                    return `<svg viewBox="0 0 120 120" class="w-full h-full">
+                        <path d="M 44 18 L 76 18 L 72 60 L 70 98 L 50 98 L 48 60 Z" fill="#ffd8be" stroke="#c27849" stroke-width="3.5" stroke-linejoin="round"/>
+                        <path d="M 52 58 Q 60 63 68 58" fill="none" stroke="#c27849" stroke-width="3" stroke-linecap="round"/>
+                    </svg>`;
+                case 'foot':
+                    return `<svg viewBox="0 0 120 120" class="w-full h-full">
+                        <path d="M 44 26 L 66 26 L 68 66 C 84 70, 98 76, 98 88 C 98 96, 86 98, 44 98 C 32 98, 28 88, 34 76 L 44 62 Z" fill="#ffd8be" stroke="#c27849" stroke-width="3.5" stroke-linejoin="round"/>
+                        <circle cx="92" cy="88" r="4" fill="#ffe4d1" stroke="#c27849" stroke-width="2"/>
+                    </svg>`;
+                default:
+                    return '';
+            }
+        }
+
+        // ==================== 6. ฟังก์ชันอัปเดตคะแนน โมเดลตัวละคร และชั้นวางจาน ====================
+        function updateScore(delta) {
+            score = Math.max(0, score + delta);
+            const scoreEl = document.getElementById('score-display');
+            const badgeBox = document.getElementById('score-badge-box');
+
+            if (badgeBox && delta !== 0) {
+                badgeBox.style.transform = delta > 0 ? 'scale(1.16)' : 'scale(0.92)';
+                setTimeout(() => {
+                    badgeBox.style.transform = 'scale(1)';
+                }, 180);
+            }
+
+            const startVal = displayedScore;
+            const endVal = score;
+            const duration = 260;
+            const startTime = performance.now();
+
+            function tick(now) {
+                const progress = Math.min(1, (now - startTime) / duration);
+                displayedScore = Math.round(startVal + (endVal - startVal) * progress);
+                if (scoreEl) scoreEl.textContent = displayedScore;
+                if (progress < 1) {
+                    requestAnimationFrame(tick);
+                } else {
+                    displayedScore = endVal;
+                    if (scoreEl) scoreEl.textContent = endVal;
+                }
+            }
+            requestAnimationFrame(tick);
+        }
+
+        /**
+         * อัปเดตโมเดลคนทั้งตัวฝั่งซ้ายเมื่อปลดล็อกอวัยวะแต่ละชิ้น
+         */
+        function updateCharacterModel(newlyUnlockedId = null) {
+            const totalParts = ORGAN_VOCAB.length;
+            const unlockedCount = unlockedBodyParts.size;
+            const percent = Math.round((unlockedCount / totalParts) * 100);
+
+            const percentLabel = document.getElementById('char-percent-label');
+            const progressBadge = document.getElementById('body-progress-badge');
+            if (percentLabel) percentLabel.textContent = `${percent}%`;
+            if (progressBadge) progressBadge.textContent = `${unlockedCount}/${totalParts}`;
+
+            const placeholderMap = {
+                head: ['ph-head'],
+                neck: ['ph-neck'],
+                arm: ['ph-arm-l', 'ph-arm-r'],
+                hand: ['ph-hand-l', 'ph-hand-r'],
+                leg: ['ph-leg-l', 'ph-leg-r'],
+                foot: ['ph-foot-l', 'ph-foot-r']
+            };
+
+            ORGAN_VOCAB.forEach(item => {
+                const partEl = document.getElementById(`part-${item.id}`);
+                const isUnlocked = unlockedBodyParts.has(item.id);
+                if (partEl) {
+                    if (isUnlocked) {
+                        partEl.classList.remove('hidden');
+                        if (item.id === newlyUnlockedId) {
+                            partEl.classList.remove('part-pop-in');
+                            void partEl.offsetWidth;
+                            partEl.classList.add('part-pop-in');
+                        }
+                    } else {
+                        partEl.classList.add('hidden');
+                        partEl.classList.remove('part-pop-in');
+                    }
+                }
+
+                if (placeholderMap[item.id]) {
+                    placeholderMap[item.id].forEach(phId => {
+                        const phEl = document.getElementById(phId);
+                        if (phEl) {
+                            if (isUnlocked) phEl.classList.add('hidden');
+                            else phEl.classList.remove('hidden');
+                        }
+                    });
+                }
+            });
+
+            // วงแสงออร่าฉลองเมื่อปลดล็อกอวัยวะใหม่
+            const auraLayer = document.getElementById('character-aura-layer');
+            if (newlyUnlockedId && auraLayer) {
+                auraLayer.innerHTML = `<div class="aura-burst-ring w-28 h-28 rounded-full border-4 border-amber-400 bg-yellow-300/35"></div>`;
+                setTimeout(() => {
+                    if (auraLayer) auraLayer.innerHTML = '';
+                }, 900);
+            }
+
+            // เต้นฉลองเมื่อประกอบร่างครบทั้ง 17 ส่วน
+            const bodySvg = document.getElementById('full-body-svg');
+            if (bodySvg) {
+                if (unlockedCount >= totalParts) {
+                    bodySvg.classList.add('character-victory-dance');
+                } else {
+                    bodySvg.classList.remove('character-victory-dance');
+                }
+            }
+        }
+
+        /**
+         * แสดงชั้นวางเก็บสะสมจานซูชิที่เสิร์ฟสำเร็จแล้ว
+         */
+        function renderCompletedShelf() {
+            const shelf = document.getElementById('completed-plates-shelf');
+            const countBadge = document.getElementById('completed-plates-count');
+            if (countBadge) {
+                countBadge.textContent = `${completedPlatesHistory.length} / ${ORGAN_VOCAB.length} จาน`;
+            }
+            if (!shelf) return;
+
+            if (completedPlatesHistory.length === 0) {
+                shelf.innerHTML = `
+                    <div class="w-full text-center text-amber-200/80 text-xs py-3">
+                        ยังไม่มีจานซูชิที่เสิร์ฟสำเร็จ • ตอบถูกเพื่อเก็บจานซูชิไว้ที่นี่!
+                    </div>
+                `;
+                return;
+            }
+
+            shelf.innerHTML = completedPlatesHistory.map((entry, idx) => `
+                <div class="flex-shrink-0 bg-white/95 border-2 border-amber-300 rounded-2xl px-2.5 py-1.5 flex flex-col items-center shadow-md min-w-[96px]">
+                    <span class="text-[10px] font-extrabold text-orange-700 bg-orange-100 px-2 py-0.5 rounded-full mb-0.5 truncate max-w-[92px]">
+                        ${idx + 1}. ${escapeHTML(entry.organ)}
+                    </span>
+                    <div class="flex items-center justify-center -my-1">
+                        ${createSushiSVG(entry.sushiStyle, entry.words[0], 'mini')}
+                    </div>
+                    <span class="text-[10px] font-bold text-stone-700 truncate max-w-[92px]">
+                        ${escapeHTML(entry.words.join(', '))}
+                    </span>
+                </div>
+            `).join('');
+
+            shelf.scrollLeft = shelf.scrollWidth;
+        }
+
+        // ==================== 7. แอนิเมชันเอฟเฟกต์พิเศษ (บินเข้าจาน, ดาวกระจาย, พลุ) ====================
+        function animateSushiFlyToPlate(sourceEl, sushiStyle, word, onComplete) {
+            const plateEl = document.getElementById('main-sushi-plate');
+            if (!sourceEl || !plateEl) {
+                if (onComplete) onComplete();
+                return;
+            }
+
+            const startRect = sourceEl.getBoundingClientRect();
+            const endRect = plateEl.getBoundingClientRect();
+
+            const flyer = document.createElement('div');
+            flyer.style.position = 'fixed';
+            flyer.style.left = `${startRect.left}px`;
+            flyer.style.top = `${startRect.top}px`;
+            flyer.style.width = `${startRect.width}px`;
+            flyer.style.height = `${startRect.height}px`;
+            flyer.style.zIndex = '9998';
+            flyer.style.pointerEvents = 'none';
+            flyer.innerHTML = createSushiSVG(sushiStyle, word, 'normal');
+            document.body.appendChild(flyer);
+
+            const deltaX = (endRect.left + endRect.width / 2) - (startRect.left + startRect.width / 2);
+            const deltaY = (endRect.top + endRect.height / 2) - (startRect.top + startRect.height / 2);
+
+            const anim = flyer.animate([
+                { transform: 'translate(0px, 0px) scale(1) rotate(0deg)', opacity: 1 },
+                { transform: `translate(${deltaX * 0.5}px, ${deltaY * 0.5 - 65}px) scale(1.18) rotate(-8deg)`, opacity: 1 },
+                { transform: `translate(${deltaX}px, ${deltaY}px) scale(0.88) rotate(0deg)`, opacity: 0.95 }
+            ], {
+                duration: 380,
+                easing: 'cubic-bezier(0.22, 1, 0.36, 1)'
+            });
+
+            anim.onfinish = () => {
+                flyer.remove();
+                if (onComplete) onComplete();
+            };
+        }
+
+        function spawnFloatingPopup(x, y, text, isPositive) {
+            const el = document.createElement('div');
+            el.className = `floating-score-popup font-extrabold text-sm sm:text-base px-3 py-1 rounded-full border-2 shadow-lg ${
+                isPositive
+                    ? 'bg-green-500 text-yellow-200 border-white'
+                    : 'bg-red-500 text-white border-yellow-200'
+            }`;
+            el.style.left = `${x}px`;
+            el.style.top = `${y}px`;
+            el.textContent = text;
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 1100);
+        }
+
+        function spawnSparkleBurst(x, y, count = 12) {
+            const symbols = ['✨', '⭐', '🌟', '💫'];
+            for (let i = 0; i < count; i++) {
+                const sp = document.createElement('div');
+                sp.style.position = 'fixed';
+                sp.style.left = `${x}px`;
+                sp.style.top = `${y}px`;
+                sp.style.pointerEvents = 'none';
+                sp.style.zIndex = '9999';
+                sp.style.fontSize = `${14 + Math.random() * 10}px`;
+                sp.textContent = symbols[i % symbols.length];
+                document.body.appendChild(sp);
+
+                const angle = (Math.PI * 2 * i) / count + (Math.random() * 0.4);
+                const dist = 42 + Math.random() * 52;
+                const tx = Math.cos(angle) * dist;
+                const ty = Math.sin(angle) * dist;
+
+                const anim = sp.animate([
+                    { transform: 'translate(-50%, -50%) scale(0.4)', opacity: 1 },
+                    { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(1.15)`, opacity: 0 }
+                ], {
+                    duration: 550 + Math.random() * 200,
+                    easing: 'ease-out'
+                });
+                anim.onfinish = () => sp.remove();
+            }
+        }
+
+        function launchVictoryConfetti() {
+            const colors = ['#f97316', '#facc15', '#22c55e', '#38bdf8', '#ec4899', '#a855f7'];
+            for (let i = 0; i < 65; i++) {
+                const piece = document.createElement('div');
+                piece.style.position = 'fixed';
+                piece.style.left = `${Math.random() * 100}vw`;
+                piece.style.top = `-20px`;
+                piece.style.width = `${8 + Math.random() * 8}px`;
+                piece.style.height = `${10 + Math.random() * 10}px`;
+                piece.style.backgroundColor = colors[i % colors.length];
+                piece.style.borderRadius = '3px';
+                piece.style.zIndex = '9999';
+                piece.style.pointerEvents = 'none';
+                document.body.appendChild(piece);
+
+                const driftX = (Math.random() - 0.5) * 220;
+                const fallDuration = 2200 + Math.random() * 1800;
+
+                const anim = piece.animate([
+                    { transform: 'translate(0, 0) rotate(0deg)', opacity: 1 },
+                    { transform: `translate(${driftX}px, 105vh) rotate(${360 + Math.random() * 540}deg)`, opacity: 0.85 }
+                ], {
+                    duration: fallDuration,
+                    delay: Math.random() * 500,
+                    easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                });
+                anim.onfinish = () => piece.remove();
+            }
+        }
+
+        // ==================== 8. แจ้งเตือน Toast & ระบบจับเวลา ====================
+        function showToast(message, colorClasses = 'bg-green-500 text-white') {
+            const toast = document.getElementById('feedback-toast');
+            if (!toast) return;
+            toast.className = `px-4 py-0.5 rounded-full font-bold text-xs sm:text-sm shadow-md transition-all opacity-100 ${colorClasses}`;
+            toast.textContent = message;
+
+            if (toastTimeoutId) clearTimeout(toastTimeoutId);
+            toastTimeoutId = setTimeout(() => {
+                toast.classList.remove('opacity-100');
+                toast.classList.add('opacity-0');
+            }, 2200);
+        }
+
+        function formatTime(totalSec) {
+            const mins = Math.floor(totalSec / 60);
+            const secs = totalSec % 60;
+            return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        function startTimer() {
+            stopTimer();
+            elapsedSeconds = 0;
+            const timerEl = document.getElementById('timer-display');
+            if (timerEl) timerEl.textContent = formatTime(0);
+
+            timerIntervalId = setInterval(() => {
+                if (!isPaused) {
+                    elapsedSeconds++;
+                    if (timerEl) timerEl.textContent = formatTime(elapsedSeconds);
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            if (timerIntervalId) {
+                clearInterval(timerIntervalId);
+                timerIntervalId = null;
+            }
+        }
+
+        // ==================== 9. ระบบสร้างซูชิ 5 ชิ้นบนสายพาน & การเล่นแต่ละรอบ ====================
+        function buildSushiBatch(targetItem) {
+            const batch = targetItem.words.map(word => ({
+                word: word,
+                isCorrect: true,
+                collected: false
+            }));
+
+            const distractorsPool = [];
+            ORGAN_VOCAB.forEach(item => {
+                if (item.id !== targetItem.id) {
+                    item.words.forEach(w => {
+                        if (!targetItem.words.includes(w) && !distractorsPool.includes(w)) {
+                            distractorsPool.push(w);
+                        }
+                    });
+                }
+            });
+
+            // สุ่มสลับตัวลวง (Fisher-Yates Shuffle)
+            for (let i = distractorsPool.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [distractorsPool[i], distractorsPool[j]] = [distractorsPool[j], distractorsPool[i]];
+            }
+
+            const needed = Math.max(0, 5 - batch.length);
+            for (let i = 0; i < needed && i < distractorsPool.length; i++) {
+                batch.push({
+                    word: distractorsPool[i],
+                    isCorrect: false,
+                    collected: false
+                });
+            }
+
+            // สุ่มลำดับซูชิทั้ง 5 ชิ้นบนสายพาน
+            for (let i = batch.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [batch[i], batch[j]] = [batch[j], batch[i]];
+            }
+
+            return batch;
+        }
+
+        function loadRound(index) {
+            currentIndex = index;
+            collectedWords = [];
+            isPaused = false;
+
+            const targetItem = ORGAN_VOCAB[currentIndex];
+            const sushiStyle = SUSHI_STYLES[currentIndex % SUSHI_STYLES.length];
+
+            document.getElementById('question-progress').textContent = currentIndex + 1;
+            document.getElementById('mission-category-pill').textContent = `อวัยวะร่างกาย • หมวด: ${targetItem.category}`;
+            document.getElementById('mission-text').innerHTML =
+                `ภารกิจปัจจุบัน: จงหาคำราชาศัพท์ของ "<span class="text-yellow-200 underline decoration-wavy">${escapeHTML(targetItem.organ)}</span>" ใส่จานให้ครบ ${targetItem.words.length} คำ`;
+            document.getElementById('sushi-type-badge').textContent = sushiStyle.name;
+
+            const focusCard = document.getElementById('organ-focus-card');
+            if (focusCard) {
+                focusCard.classList.remove('organ-flip-in');
+                void focusCard.offsetWidth;
+                focusCard.classList.add('organ-flip-in');
+            }
+
+            document.getElementById('organ-category-badge').textContent = `🔍 ${targetItem.category}`;
+            const illustrationBox = document.getElementById('organ-illustration-box');
+            illustrationBox.classList.remove('organ-enter', 'organ-celebrate');
+            void illustrationBox.offsetWidth;
+            illustrationBox.innerHTML = `<div class="organ-float-idle w-full h-full flex items-center justify-center">${getIsolatedOrganSVG(targetItem.id)}</div>`;
+            illustrationBox.classList.add('organ-enter');
+
+            document.getElementById('organ-label-text').textContent = targetItem.organ;
+
+            const noteEl = document.getElementById('organ-note-text');
+            if (targetItem.note) {
+                noteEl.textContent = `💡 ${targetItem.note}`;
+                noteEl.classList.remove('hidden');
+            } else {
+                noteEl.classList.add('hidden');
+            }
+
+            renderPlate(targetItem, sushiStyle);
+
+            // สร้างชุดซูชิ 5 ชิ้นและนำลงสายพานทันที
+            currentSushiBatch = buildSushiBatch(targetItem);
+            renderConveyorSushi(sushiStyle);
+
+            const track = document.getElementById('conveyor-track');
+            const trackWidth = (track && track.getBoundingClientRect().width) || window.innerWidth || 960;
+            beltOffsetX = Math.max(120, trackWidth * 0.65);
+
+            const train = document.getElementById('sushi-train');
+            if (train) {
+                train.style.transform = `translate3d(${beltOffsetX}px, 0, 0)`;
+            }
+        }
+
+        function renderPlate(targetItem, sushiStyle) {
+            const plateSlots = document.getElementById('plate-slots');
+            plateSlots.innerHTML = '';
+
+            document.getElementById('plate-counter').textContent = 
+                `${collectedWords.length} / ${targetItem.words.length}`;
+
+            for (let i = 0; i < targetItem.words.length; i++) {
+                if (collectedWords[i]) {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'jelly-land flex flex-col items-center';
+                    itemDiv.innerHTML = createSushiSVG(sushiStyle, collectedWords[i], 'plate');
+                    plateSlots.appendChild(itemDiv);
+                } else {
+                    const emptyDiv = document.createElement('div');
+                    emptyDiv.className = 'w-24 h-20 sm:w-28 sm:h-24 rounded-3xl border-3 border-dashed border-amber-400 bg-amber-50/80 flex flex-col items-center justify-center text-amber-700 p-1.5';
+                    emptyDiv.innerHTML = `
+                        <span class="text-xl opacity-60">🍣</span>
+                        <span class="text-[11px] font-bold mt-0.5">คำที่ ${i + 1}</span>
+                    `;
+                    plateSlots.appendChild(emptyDiv);
+                }
+            }
+        }
+
+        function renderConveyorSushi(sushiStyle) {
+            const track = document.getElementById('conveyor-track');
+            track.innerHTML = '';
+
+            const train = document.createElement('div');
+            train.id = 'sushi-train';
+            train.className = 'flex items-center gap-5 sm:gap-8 px-4 absolute left-0 top-1/2 -translate-y-1/2 will-change-transform';
+
+            currentSushiBatch.forEach((item, idx) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.id = `sushi-item-${idx}`;
+                btn.className = 'sushi-btn relative flex-shrink-0 focus:outline-none';
+                btn.innerHTML = createSushiSVG(sushiStyle, item.word, 'normal');
+                btn.onclick = () => onSelectSushi(idx);
+                train.appendChild(btn);
+            });
+
+            track.appendChild(train);
+        }
+
+        function onSelectSushi(idx) {
+            if (isPaused) return;
+            const picked = currentSushiBatch[idx];
+            if (!picked || picked.collected) return;
+
+            const targetItem = ORGAN_VOCAB[currentIndex];
+            const sushiStyle = SUSHI_STYLES[currentIndex % SUSHI_STYLES.length];
+            const sushiEl = document.getElementById(`sushi-item-${idx}`);
+            const rect = sushiEl.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            if (picked.isCorrect) {
+                playSound('correct');
+                picked.collected = true;
+                comboStreak++;
+
+                const comboBonus = comboStreak >= 2 ? Math.min(10, (comboStreak - 1) * 2) : 0;
+                const earnedPoints = 10 + comboBonus;
+
+                const comboBadge = document.getElementById('combo-badge');
+                if (comboStreak >= 2) {
+                    comboBadge.classList.remove('hidden');
+                    document.getElementById('combo-count-text').textContent = comboStreak;
+                } else {
+                    comboBadge.classList.add('hidden');
+                }
+
+                spawnSparkleBurst(centerX, centerY, 14);
+                spawnFloatingPopup(
+                    centerX,
+                    rect.top,
+                    comboBonus > 0 ? `+${earnedPoints} (คอมโบ x${comboStreak}!)` : `+${earnedPoints}`,
+                    true
+                );
+
+                sushiEl.style.visibility = 'hidden';
+                sushiEl.style.pointerEvents = 'none';
+
+                collectedWords.push(picked.word);
+                const isRoundComplete = collectedWords.length >= targetItem.words.length;
+                if (isRoundComplete) {
+                    isPaused = true;
+                }
+
+                animateSushiFlyToPlate(sushiEl, sushiStyle, picked.word, () => {
+                    updateScore(earnedPoints);
+                    renderPlate(targetItem, sushiStyle);
+
+                    const box = document.getElementById('organ-illustration-box');
+                    box.classList.remove('organ-celebrate');
+                    void box.offsetWidth;
+                    box.classList.add('organ-celebrate');
+
+                    if (isRoundComplete) {
+                        playSound('complete');
+
+                        unlockedBodyParts.add(targetItem.id);
+                        updateCharacterModel(targetItem.id);
+
+                        const stageBox = document.getElementById('character-stage-box');
+                        if (stageBox) {
+                            const sRect = stageBox.getBoundingClientRect();
+                            spawnSparkleBurst(sRect.left + sRect.width / 2, sRect.top + sRect.height / 2, 16);
+                        }
+
+                        completedPlatesHistory.push({
+                            organId: targetItem.id,
+                            organ: targetItem.organ,
+                            words: [...collectedWords],
+                            sushiStyle: sushiStyle
+                        });
+                        renderCompletedShelf();
+
+                        showToast(`🎉 สำเร็จ! ประกอบ "${targetItem.organ}" และเก็บจานซูชิแล้ว`, 'bg-green-500 text-white');
+
+                        setTimeout(() => {
+                            if (currentIndex + 1 < ORGAN_VOCAB.length) {
+                                loadRound(currentIndex + 1);
+                            } else {
+                                finishGame();
+                            }
+                        }, 1350);
+                    } else {
+                        const left = targetItem.words.length - collectedWords.length;
+                        showToast(`✅ ถูกต้อง! "${picked.word}" (เหลืออีก ${left} คำ)`, 'bg-green-500 text-white');
+                    }
+                });
+            } else {
+                playSound('wrong');
+                wrongAttempts++;
+                comboStreak = 0;
+                document.getElementById('combo-badge').classList.add('hidden');
+                updateScore(-5);
+                spawnFloatingPopup(centerX, rect.top, '-5 คะแนน', false);
+
+                sushiEl.classList.remove('wrong-shake');
+                void sushiEl.offsetWidth;
+                sushiEl.classList.add('wrong-shake');
+
+                const owner = ORGAN_VOCAB.find(v => v.words.includes(picked.word));
+                const meaningHint = owner ? `"${picked.word}" แปลว่า "${owner.organ}"` : 'ยังไม่ถูกต้อง';
+                showToast(`❌ ผิดจ้า! ${meaningHint} (-5 คะแนน)`, 'bg-red-500 text-white');
+            }
+        }
+
+        /**
+         * ลูปเคลื่อนที่สายพานจากขวาไปซ้าย (ความเร็วช้าลงอ่านง่าย: 70px/s มือถือ, 90px/s เดสก์ท็อป)
+         */
+        function animateBelt(timestamp) {
+            if (!lastFrameTime) lastFrameTime = timestamp || performance.now();
+            const now = timestamp || performance.now();
+            const dt = Math.min(40, now - lastFrameTime);
+            lastFrameTime = now;
+
+            const train = document.getElementById('sushi-train');
+            const track = document.getElementById('conveyor-track');
+
+            if (train && track && !isPaused) {
+                const trackWidth = track.getBoundingClientRect().width || window.innerWidth || 960;
+                const trainWidth = train.getBoundingClientRect().width || (5 * 155);
+                const pxPerSec = window.innerWidth < 640 ? 70 : 90;
+
+                beltOffsetX -= (pxPerSec * dt) / 1000;
+
+                if (beltOffsetX < -trainWidth) {
+                    beltOffsetX = trackWidth;
+                }
+                train.style.transform = `translate3d(${beltOffsetX}px, 0, 0)`;
+            }
+            animationFrameId = requestAnimationFrame(animateBelt);
+        }
+
+        // ==================== 10. คลังคำศัพท์ & ควบคุมการเริ่ม/จบเกม ====================
+        function pauseForModal(open) {
+            const startVisible = !document.getElementById('start-screen').classList.contains('hidden');
+            const endVisible = !document.getElementById('end-screen').classList.contains('hidden');
+            if (startVisible || endVisible) return;
+
+            if (open && !isPaused) {
+                isPaused = true;
+                pausedByModal = true;
+            } else if (!open && pausedByModal) {
+                isPaused = false;
+                pausedByModal = false;
+            }
+        }
+
+        function randomizePlayerName() {
+            const input = document.getElementById('player-name-input');
+            const picked = RANDOM_CHEF_NAMES[Math.floor(Math.random() * RANDOM_CHEF_NAMES.length)];
+            input.value = picked;
+        }
+
+        function buildVocabCardsHTML(items) {
+            if (!items || items.length === 0) {
+                return `<p class="text-center text-stone-500 py-6">ไม่พบคำศัพท์ที่ค้นหา</p>`;
+            }
+
+            const categories = [
+                'ส่วนศีรษะและใบหน้า',
+                'ส่วนลำตัวและอวัยวะภายใน',
+                'ส่วนแขนและขา'
+            ];
+
+            let html = '';
+            categories.forEach(cat => {
+                const catItems = items.filter(item => item.category === cat);
+                if (catItems.length === 0) return;
+
+                html += `
+                    <div class="mb-3">
+                        <div class="bg-amber-100 border border-amber-300 text-amber-900 font-extrabold text-xs sm:text-sm px-3 py-1 rounded-xl mb-2 inline-block">
+                            📌 ${cat} (${catItems.length} อวัยวะ)
+                        </div>
+                        <div class="space-y-2">
+                            ${catItems.map(item => {
+                                const originalIndex = ORGAN_VOCAB.findIndex(v => v.id === item.id) + 1;
+                                return `
+                                <div class="bg-white border-2 border-sky-200 rounded-2xl p-2.5 flex items-center justify-between gap-3 shadow-sm">
+                                    <div class="flex items-center gap-2.5">
+                                        <div class="w-12 h-11 bg-orange-50 rounded-xl border border-orange-200 p-1 flex-shrink-0">
+                                            ${getIsolatedOrganSVG(item.id)}
+                                        </div>
+                                        <div>
+                                            <p class="font-bold text-stone-800 text-sm sm:text-base">${originalIndex}. ${escapeHTML(item.organ)}</p>
+                                            ${item.note ? `<p class="text-[11px] text-amber-700 font-medium">💡 ${escapeHTML(item.note)}</p>` : ''}
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-wrap gap-1.5 justify-end">
+                                        ${item.words.map(w => `
+                                            <span class="bg-amber-100 text-orange-800 border border-amber-300 font-bold px-2.5 py-0.5 rounded-full text-xs sm:text-sm">
+                                                🍣 ${escapeHTML(w)}
+                                            </span>
+                                        `).join('')}
+                                    </div>
+                                </div>`;
+                            }).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+            return html;
+        }
+
+        function populateVocabLists() {
+            const htmlContent = buildVocabCardsHTML(ORGAN_VOCAB);
+            document.getElementById('vocab-guide-list').innerHTML = htmlContent;
+            document.getElementById('end-summary-list').innerHTML = htmlContent;
+        }
+
+        function filterVocabGuide() {
+            const q = (document.getElementById('vocab-search-input').value || '').trim().toLowerCase();
+            if (!q) {
+                document.getElementById('vocab-guide-list').innerHTML = buildVocabCardsHTML(ORGAN_VOCAB);
+                return;
+            }
+            const filtered = ORGAN_VOCAB.filter(item => 
+                item.category.toLowerCase().includes(q) ||
+                item.organ.toLowerCase().includes(q) ||
+                item.words.some(w => w.toLowerCase().includes(q)) ||
+                (item.note && item.note.toLowerCase().includes(q))
+            );
+            document.getElementById('vocab-guide-list').innerHTML = buildVocabCardsHTML(filtered);
+        }
+
+        function toggleVocabModal(show) {
+            const modal = document.getElementById('vocab-modal');
+            if (show) {
+                pauseForModal(true);
+                const searchInput = document.getElementById('vocab-search-input');
+                if (searchInput) searchInput.value = '';
+                document.getElementById('vocab-guide-list').innerHTML = buildVocabCardsHTML(ORGAN_VOCAB);
+                modal.classList.remove('hidden');
+            } else {
+                modal.classList.add('hidden');
+                pauseForModal(false);
+            }
+        }
+
+        function startGame() {
+            initAudio();
+            const inputVal = document.getElementById('player-name-input').value.trim();
+            playerName = inputVal || RANDOM_CHEF_NAMES[Math.floor(Math.random() * RANDOM_CHEF_NAMES.length)];
+            document.getElementById('hud-player-name').textContent = playerName;
+
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('end-screen').classList.add('hidden');
+
+            score = 0;
+            displayedScore = 0;
+            comboStreak = 0;
+            document.getElementById('score-display').textContent = '0';
+            document.getElementById('combo-badge').classList.add('hidden');
+            wrongAttempts = 0;
+            completedPlatesHistory = [];
+            unlockedBodyParts.clear();
+            lastFrameTime = 0;
+
+            updateScore(0);
+            updateCharacterModel();
+            renderCompletedShelf();
+            startTimer();
+            loadRound(0);
+
+            if (!animationFrameId) {
+                animationFrameId = requestAnimationFrame(animateBelt);
+            }
+        }
+
+        function restartGame() {
+            startGame();
+        }
+
+        function backToTitleScreen() {
+            stopTimer();
+            isPaused = true;
+            document.getElementById('end-screen').classList.add('hidden');
+            document.getElementById('start-screen').classList.remove('hidden');
+        }
+
+        function finishGame() {
+            isPaused = true;
+            stopTimer();
+
+            const speedBonus = Math.max(0, 30 - Math.floor(elapsedSeconds / 10));
+            const totalFinalScore = score + speedBonus;
+
+            document.getElementById('end-player-name').textContent = playerName;
+            document.getElementById('final-score').textContent = `${totalFinalScore} คะแนน`;
+            document.getElementById('final-bonus-note').textContent = `(คะแนนพื้นฐาน ${score} + โบนัสความไว ${speedBonus})`;
+            document.getElementById('final-time').textContent = formatTime(elapsedSeconds);
+
+            const stars = wrongAttempts === 0 ? '⭐⭐⭐' : (wrongAttempts <= 4 ? '⭐⭐' : '⭐');
+            document.getElementById('star-rating').textContent = stars;
+
+            document.getElementById('end-screen').classList.remove('hidden');
+            launchVictoryConfetti();
+        }
+
+        window.onload = function () {
+            populateVocabLists();
+            if (!animationFrameId) {
+                animationFrameId = requestAnimationFrame(animateBelt);
+            }
+        };
+    </script>
+</body>
+</html>
